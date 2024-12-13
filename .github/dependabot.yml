@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/client-samples/java/rest"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+    commit-message:
+      prefix: "gradle"
