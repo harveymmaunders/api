@@ -2,3 +2,4 @@ build
 install
 .gradle/
 .idea/
+!gradle/wrapper/gradle-wrapper.jar
