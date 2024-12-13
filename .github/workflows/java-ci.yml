@@ -1,3 +1,6 @@
+defaults:
+  run:
+    working-directory: ./client-samples/java/rest
 name: Java CI
 on:
   pull_request:
