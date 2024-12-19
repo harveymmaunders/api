@@ -3,7 +3,7 @@ import json
 import logging
 import requests
 import time
-from typing import List
+from typing import List, Union
 
 
 class MsRequestsWrapper:
@@ -46,7 +46,7 @@ class MsRequestsWrapper:
         with open(private_key_file, mode="r") as f:
             return f.read()
 
-    def get_proxies(self, config: dict) -> dict | None:
+    def get_proxies(self, config: dict) -> Union[dict, None]:
         """
         Returns proxy config from the config dictionary if the correct config has been provided.
         Otherwise returns None.
@@ -68,7 +68,7 @@ class MsRequestsWrapper:
             }
         return proxies
 
-    def get_requests_ca_bundle(self, config: dict) -> str | bool:
+    def get_requests_ca_bundle(self, config: dict) -> Union[str, bool]:
         """
         Get the system CA bundle, if it's set. This is only necessary if your environment uses a proxy, since the bundled certificates will not work.
         This returns True if no CA bundle is set; this tells requests to use the default, bundled certificates.
