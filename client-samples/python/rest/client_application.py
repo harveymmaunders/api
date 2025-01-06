@@ -6,7 +6,7 @@
 from msal import ConfidentialClientApplication
 import json
 import requests
-from typing import List
+from typing import List, Union
 
 # uncomment this line for DEBUG level logging in case of errors
 # logging.basicConfig(level=logging.DEBUG)
@@ -38,7 +38,7 @@ def load_private_key(private_key_file: str):
         return f.read()
 
 
-def get_proxies(config: dict) -> dict | None:
+def get_proxies(config: dict) -> Union[dict, None]:
     """
     Returns proxy config from the config dictionary if the correct config has been provided.
     Otherwise returns None.
@@ -61,7 +61,7 @@ def get_proxies(config: dict) -> dict | None:
     return proxies
 
 
-def get_requests_ca_bundle(config: dict) -> str | bool:
+def get_requests_ca_bundle(config: dict) -> Union[str, bool]:
     """
     Get the system CA bundle, if it's set. This is only necessary if your environment uses a proxy, since the bundled certificates will not work.
     This returns True if no CA bundle is set; this tells requests to use the default, bundled certificates.
