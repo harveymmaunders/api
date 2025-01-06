@@ -16,10 +16,10 @@ It uses the following libraries:
 ```bash
 # create a virtual environment in the 'virtualenv' folder
 # NOTE: this is optional but recommended
-python -m venv virtualenv
+python -m venv .venv
 
 source virtualenv/bin/activate # on Linux, using bash
-.\virtualenv\Scripts\activate # on Windows
+.\.venv\Scripts\activate # on Windows
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
@@ -50,6 +50,13 @@ If you want to reduce the amount of logs output, please remove this line from th
 
 ```python
 websocket.enableTrace(True)
+```
+
+## Testing
+This project uses `pytest` for unit testing.
+Run the following command to run unit tests:
+```bash
+pytest tests
 ```
 
 ## Linting

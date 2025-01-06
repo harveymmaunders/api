@@ -68,6 +68,29 @@ def get_requests_ca_bundle(config: dict) -> str | bool:
     return config.get("requests_ca_bundle") or True
 
 
+def get_proxies(config: dict) -> dict | None:
+    """
+    Returns proxy config from the config dictionary if the correct config has been provided.
+    Otherwise returns None.
+
+    Parameters
+    ----------
+    config: dict
+        The config map to use.
+    """
+    proxy_host = config.get("proxy_host")
+    proxy_port = config.get("proxy_port")
+    proxies = None
+    if proxy_host is not None:
+        if proxy_port is None:
+            raise Exception("Missing proxy port.")
+        proxies = {
+            "http": f"{proxy_host}:{proxy_port}",
+            "https": f"{proxy_host}:{proxy_port}",
+        }
+    return proxies
+
+
 def get_client_app(config: dict):
     """
     Configures an MSAL client application, that can later be used to request an access token.
@@ -82,16 +105,7 @@ def get_client_app(config: dict):
     private_key_path = config["private_key_file"]
     authority = f"https://login.microsoftonline.com/{config['tenant']}"
     requests_ca_bundle = get_requests_ca_bundle(config)
-    proxy_host = config.get("proxy_host")
-    proxy_port = config.get("proxy_port")
-    proxies = None
-    if proxy_host is not None:
-        if proxy_port is None:
-            raise Exception("Missing proxy port.")
-        proxies = {
-            "http": f"{proxy_host}:{proxy_port}",
-            "https": f"{proxy_host}:{proxy_port}",
-        }
+    proxies = get_proxies(config)
 
     private_key = load_private_key(private_key_path)
 
