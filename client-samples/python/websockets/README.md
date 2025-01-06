@@ -16,10 +16,10 @@ It uses the following libraries:
 ```bash
 # create a virtual environment in the 'virtualenv' folder
 # NOTE: this is optional but recommended
-python -m venv .venv
+python -m venv venv
 
 source virtualenv/bin/activate # on Linux, using bash
-.\.venv\Scripts\activate # on Windows
+.\venv\Scripts\activate # on Windows
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
@@ -53,8 +53,7 @@ websocket.enableTrace(True)
 ```
 
 ## Testing
-This project uses `pytest` for unit testing.
-Run the following command to run unit tests:
+The tests have been built using the `unittest` framework, but can be run using the `pytest` command.
 ```bash
 pytest tests
 ```

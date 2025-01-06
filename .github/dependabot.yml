@@ -16,6 +16,6 @@ updates:
       prefix: "pip-websocket"
 
 schedule:
-  interval: "weekly"
+  interval: "monthly"
   day: "monday"
   time: "08:00"
