@@ -36,7 +36,7 @@ jobs:
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
     defaults:
       run:
-        working-directory: ./client-samples/python/websocket
+        working-directory: ./client-samples/python/websockets
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
