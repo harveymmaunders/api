@@ -45,8 +45,8 @@ Once Python is installed you can run following to launch the application. Please
 
 Windows:    
 ```cmd
-python -m venv .venv
-.\.venv\Scripts\activate
+python -m venv venv
+.\venv\Scripts\activate
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
