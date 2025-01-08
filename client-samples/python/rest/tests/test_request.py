@@ -3,6 +3,8 @@ import os
 import unittest
 from unittest.mock import patch
 import requests_mock
+from parameterized import parameterized
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -45,35 +47,30 @@ class TestApiCall(unittest.TestCase):
         self.get_client_app_patch.stop()
         return super().tearDown()
 
+    @parameterized.expand([
+        [200, MOCK_BODY_RESPONSE],
+        [401, {}],
+        [404, {}],
+        [500, {}],
+    ])
     @requests_mock.Mocker()
-    def test_call_api_success(self, mock_request):
+    def test_call_api(self, status_code: int, json: dict, mock_request: requests_mock.Mocker):
         """
-        Mock calling API with a successful response.
+        Mock calling API with different responses.
         Parameters
         ----------
+        status_code: int
+            Status code for the response.
+        json: dict
+            JSON response for the response.
         mock_request: requests_mock.Mocker
             Mock return for the requests get function.
         """
-        mock_request.get(URL, json=MOCK_BODY_RESPONSE, status_code=200)
+        mock_request.get(URL, status_code=status_code, json=json)
 
         response = call_api(MOCK_CONFIG)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), MOCK_BODY_RESPONSE)
-
-    @requests_mock.Mocker()
-    def test_call_api_failure(self, mock_request):
-        """
-        Mock calling API with a failed response.
-        Parameters
-        ----------
-        mock_request: requests_mock.Mocker
-            Mock return for the requests get function.
-        """
-        mock_request.get(URL, json={}, status_code=401)
-
-        response = call_api(MOCK_CONFIG)
-        self.assertEqual(response.status_code, 401)
-        self.assertEqual(response.json(), {})
+        self.assertEqual(response.status_code, status_code)
+        self.assertEqual(response.json(), json)
 
 
 if __name__ == "__main__":
