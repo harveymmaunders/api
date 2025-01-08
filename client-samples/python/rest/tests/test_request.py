@@ -47,14 +47,18 @@ class TestApiCall(unittest.TestCase):
         self.get_client_app_patch.stop()
         return super().tearDown()
 
-    @parameterized.expand([
-        [200, MOCK_BODY_RESPONSE],
-        [401, {}],
-        [404, {}],
-        [500, {}],
-    ])
+    @parameterized.expand(
+        [
+            [200, MOCK_BODY_RESPONSE],
+            [401, {}],
+            [404, {}],
+            [500, {}],
+        ]
+    )
     @requests_mock.Mocker()
-    def test_call_api(self, status_code: int, json: dict, mock_request: requests_mock.Mocker):
+    def test_call_api(
+        self, status_code: int, json: dict, mock_request: requests_mock.Mocker
+    ):
         """
         Mock calling API with different responses.
         Parameters
