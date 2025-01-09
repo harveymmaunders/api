@@ -5,14 +5,7 @@ import unittest
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from client import load_config, get_proxies
-from test_consts import MOCK_CONFIG
-
-TEST_PROXY_HOST = MOCK_CONFIG["proxy_host"]
-TEST_PROXY_PORT = MOCK_CONFIG["proxy_port"]
-TEST_PROXY_CONFIG = {
-    "http": f"{TEST_PROXY_HOST}:{TEST_PROXY_PORT}",
-    "https": f"{TEST_PROXY_HOST}:{TEST_PROXY_PORT}",
-}
+from test_consts import MOCK_CONFIG, TEST_PROXY_CONFIG
 
 
 class TestConfigSetup(unittest.TestCase):
