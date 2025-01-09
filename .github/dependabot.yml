@@ -2,9 +2,20 @@ version: 2
 updates:
   - package-ecosystem: "gradle"
     directory: "/client-samples/java/rest"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
     commit-message:
       prefix: "gradle"
+
+  - package-ecosystem: "pip"
+    directory: "/client-samples/python/rest"
+    commit-message:
+      prefix: "pip-rest"
+
+  - package-ecosystem: "pip"
+    directory: "/client-samples/python/websockets"
+    commit-message:
+      prefix: "pip-websocket"
+
+schedule:
+  interval: "monthly"
+  day: "monday"
+  time: "08:00"

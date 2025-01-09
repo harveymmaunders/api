@@ -1,0 +1,33 @@
+name: Python Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  python-checkout-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        working-directory:
+          - ./client-samples/python/rest
+          - ./client-samples/python/websockets
+    defaults:
+      run:
+        working-directory: ${{ matrix.working-directory }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run pytest
+        run: pytest tests/
+      - name: Run black check (linting)
+        run: black --check .

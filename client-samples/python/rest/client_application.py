@@ -1,18 +1,16 @@
-# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0. 
+# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 # See the NOTICE file distributed with this work for additional information regarding copyright ownership.
-# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
 from msal import ConfidentialClientApplication
-import sys
 import json
-import logging
 import requests
-import time
-from typing import List
+from typing import List, Union
 
 # uncomment this line for DEBUG level logging in case of errors
 # logging.basicConfig(level=logging.DEBUG)
+
 
 def load_config(config_file: str):
     """
@@ -40,7 +38,7 @@ def load_private_key(private_key_file: str):
         return f.read()
 
 
-def get_proxies(config: dict) -> dict | None:
+def get_proxies(config: dict) -> Union[dict, None]:
     """
     Returns proxy config from the config dictionary if the correct config has been provided.
     Otherwise returns None.
@@ -63,7 +61,7 @@ def get_proxies(config: dict) -> dict | None:
     return proxies
 
 
-def get_requests_ca_bundle(config: dict) -> str | bool:
+def get_requests_ca_bundle(config: dict) -> Union[str, bool]:
     """
     Get the system CA bundle, if it's set. This is only necessary if your environment uses a proxy, since the bundled certificates will not work.
     This returns True if no CA bundle is set; this tells requests to use the default, bundled certificates.
@@ -109,7 +107,7 @@ def get_client_app(config: dict):
         authority=authority,
         client_credential={"thumbprint": thumbprint, "private_key": private_key},
         proxies=proxies,
-        verify=requests_ca_bundle
+        verify=requests_ca_bundle,
     )
 
 
@@ -141,25 +139,31 @@ def acquire_token(app: ConfidentialClientApplication, scopes: List[str]):
     return result["access_token"]
 
 
+def call_api(config: dict):
+    """
+    Call API using access token.
+
+    Parameters
+    ----------
+    config: dict
+        The config map to use.
+    """
+    app = get_client_app(config)
+    access_token = acquire_token(app, config["scopes"])
+
+    print("Calling API...")
+    # call API using access token
+    return requests.get(
+        config["url"],
+        headers={"Authorization": "Bearer " + access_token},
+        proxies=get_proxies(config),
+        verify=get_requests_ca_bundle(config),
+    )
+
+
 if __name__ == "__main__":
     print("Starting Client application")
     config = load_config("config.json")
 
-    app = get_client_app(config)
-    access_token = acquire_token(app, config["scopes"])
-
-    proxies = get_proxies(config)
-    url = config["url"]
-
-    requests_ca_bundle = get_requests_ca_bundle(config)
-
-    print("Calling API.")
-    # Call API using the access token
-    response = requests.get(  # Use token to call downstream service
-        url, 
-        headers={"Authorization": "Bearer " + access_token}, 
-        proxies=proxies,
-        verify=requests_ca_bundle
-    ).json()
-
+    response = call_api(config)
     print("API call result: %s" % json.dumps(response, indent=2))

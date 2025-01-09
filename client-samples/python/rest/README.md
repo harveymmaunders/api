@@ -45,19 +45,19 @@ Once Python is installed you can run following to launch the application. Please
 
 Windows:    
 ```cmd
-python -m venv virtualenv
-.\virtualenv\Scripts\activate
+python -m venv venv
+.\venv\Scripts\activate
 
 python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 
 python client-application.py
 ```
 
 Mac/Linux:   
 ```bash
-python -m venv virtualenv
-. virtualenv/bin/activate
+python -m venv venv
+. venv/bin/activate
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
@@ -65,6 +65,12 @@ python client-application.py
 ```
 
 The application will launch and connect to the Morgan Stanley API offering and output the result.
+
+## Testing
+The tests have been built using the `unittest` framework, but can be run using the `pytest` command.
+```bash
+pytest tests
+```
 
 ## Linting
 This project uses `black` to lint its source code for readability. 

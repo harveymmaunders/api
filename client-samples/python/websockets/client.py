@@ -1,10 +1,10 @@
-# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0. 
+# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
 # See the NOTICE file distributed with this work for additional information regarding copyright ownership.
-# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
 from msal import ConfidentialClientApplication
-from typing import List, Optional
+from typing import List, Optional, Union
 import socket
 import sys
 import json
@@ -45,7 +45,7 @@ def load_private_key(private_key_file: str):
         return f.read()
 
 
-def get_requests_ca_bundle(config: dict) -> str | bool:
+def get_requests_ca_bundle(config: dict) -> Union[str, bool]:
     """
     Get the system CA bundle, if it's set. This is only necessary if your environment uses a proxy, since the bundled certificates will not work.
     This returns True if no CA bundle is set; this tells requests to use the default, bundled certificates.
@@ -68,6 +68,29 @@ def get_requests_ca_bundle(config: dict) -> str | bool:
     return config.get("requests_ca_bundle") or True
 
 
+def get_proxies(config: dict) -> Union[dict, None]:
+    """
+    Returns proxy config from the config dictionary if the correct config has been provided.
+    Otherwise returns None.
+
+    Parameters
+    ----------
+    config: dict
+        The config map to use.
+    """
+    proxy_host = config.get("proxy_host")
+    proxy_port = config.get("proxy_port")
+    proxies = None
+    if proxy_host is not None:
+        if proxy_port is None:
+            raise Exception("Missing proxy port.")
+        proxies = {
+            "http": f"{proxy_host}:{proxy_port}",
+            "https": f"{proxy_host}:{proxy_port}",
+        }
+    return proxies
+
+
 def get_client_app(config: dict):
     """
     Configures an MSAL client application, that can later be used to request an access token.
@@ -82,16 +105,7 @@ def get_client_app(config: dict):
     private_key_path = config["private_key_file"]
     authority = f"https://login.microsoftonline.com/{config['tenant']}"
     requests_ca_bundle = get_requests_ca_bundle(config)
-    proxy_host = config.get("proxy_host")
-    proxy_port = config.get("proxy_port")
-    proxies = None
-    if proxy_host is not None:
-        if proxy_port is None:
-            raise Exception("Missing proxy port.")
-        proxies = {
-            "http": f"{proxy_host}:{proxy_port}",
-            "https": f"{proxy_host}:{proxy_port}",
-        }
+    proxies = get_proxies(config)
 
     private_key = load_private_key(private_key_path)
 
@@ -132,13 +146,15 @@ def acquire_token(app: ConfidentialClientApplication, scopes: List[str]):
     return result["access_token"]
 
 
-def get_sslopts(verify_http: bool | str):
+def get_sslopts(verify_http: Union[bool, str]):
     """
     Constructs an SSLOpts object to use when establishing a WebSocket connection.
     """
     if not verify_http:
         # explicitly disable
-        print("\n\nWARNING: explicitly disabling SSL verification for WebSocket connection! By using this feature, your connection is not secure! \n")
+        print(
+            "\n\nWARNING: explicitly disabling SSL verification for WebSocket connection! By using this feature, your connection is not secure! \n"
+        )
         return {"cert_reqs": ssl.CERT_NONE}
     if verify_http == True:
         # None = default settings
@@ -152,7 +168,7 @@ def get_sslopts(verify_http: bool | str):
     context.verify_mode = ssl.CERT_REQUIRED
     context.check_hostname = True
 
-    return {'context': context}
+    return {"context": context}
 
 
 class WebSocketHandler:
@@ -168,7 +184,7 @@ class WebSocketHandler:
         retry_bad_handshake_status: bool,
         proxy_host: Optional[str] = None,
         proxy_port: Optional[int] = None,
-        verify_http: bool | str = True,
+        verify_http: Union[bool, str] = True,
     ):
         """
         WebSocketHandler initialisation
@@ -239,22 +255,25 @@ class WebSocketHandler:
                     http_proxy_host=proxy_host_ip,
                     http_proxy_port=self.proxy_port,
                     proxy_type=proxy_type,
-                    sslopt=ssl_options
+                    sslopt=ssl_options,
                 )
                 if teardown:
                     self.ws.close()
-                print("Connection was closed, sleeping for 10 seconds before reconnecting.")
+                print(
+                    "Connection was closed, sleeping for 10 seconds before reconnecting."
+                )
                 time.sleep(10)
             except Exception as e:
-                print("An exception was in the connection loop. Sleeping for 10 seconds, then retrying.")
+                print(
+                    "An exception was in the connection loop. Sleeping for 10 seconds, then retrying."
+                )
                 print("Exception: " + str(type(e)) + ": " + str(e))
                 self.ws.close()
                 time.sleep(10)
-            
+
     def on_message(self, ws, message):
         # put your logic here or pass the message out using a callback
         print("Received message: ", message)
-
 
     def on_error(self, ws, error):
         print("An error occurred. Type of error: " + str(type(error)))
@@ -266,12 +285,13 @@ class WebSocketHandler:
 
         if isinstance(error, websocket.WebSocketBadStatusException):
             if not self.retry_bad_handshake_status:
-                print("Bad handshake status was encountered and the app was configured to not retry. Exiting the app.")
+                print(
+                    "Bad handshake status was encountered and the app was configured to not retry. Exiting the app."
+                )
                 sys.exit(1)
 
         print("Trying to reconnect")
         # loop will retry
-
 
     def on_close(self, ws, close_status_code, close_msg):
         print("Connection was closed")
@@ -287,7 +307,9 @@ def create_connection(config: dict, url: str):
     proxy_port = config.get("proxy_port")
     requests_ca_bundle = get_requests_ca_bundle(config)
     app = get_client_app(config)
-    retry_bad_handshake_status = config.get("retry_bad_handshake_status", True) # default is to retry
+    retry_bad_handshake_status = config.get(
+        "retry_bad_handshake_status", True
+    )  # default is to retry
 
     return WebSocketHandler(
         url=url,
@@ -296,7 +318,7 @@ def create_connection(config: dict, url: str):
         proxy_host=proxy_host,
         proxy_port=proxy_port,
         verify_http=requests_ca_bundle,
-        retry_bad_handshake_status=retry_bad_handshake_status
+        retry_bad_handshake_status=retry_bad_handshake_status,
     )
 
 
