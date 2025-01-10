@@ -2,6 +2,7 @@ package com.ms.infra.example.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ms.infra.example.application.morganStanleyServices.MsApiRequest;
 import com.ms.infra.example.application.morganStanleyServices.MsRetrofitWrapper;
 import com.ms.infra.example.application.responseTypes.HelloWorldGetServicesResponse;
 import com.ms.infra.example.application.services.HelloWorldRestService;
@@ -13,21 +14,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ExampleApplication {
-    private static final String helloWorldUrl = "https://api-uat.morganstanley.com/hello/world/v1/";
     private static final Logger logger = LoggerFactory.getLogger(ExampleApplication.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String apiEndpoint = "hello/world/v1/services";
 
     public static void main(String... args) throws Exception {
         run();
     }
 
     public static void run() throws Exception {
-        MsRetrofitWrapper msRetrofitWrapper = new MsRetrofitWrapper(helloWorldUrl, HttpLoggingInterceptor.Level.BODY);
-        HelloWorldRestService helloWorldRestService = msRetrofitWrapper.createService(HelloWorldRestService.class);
-        callHelloWorldApi(helloWorldRestService);
+        // Call the endpoint with an okHttpClient request
+        callHelloWorldApi();
+
+        // Call the endpoint with retrofit
+        callHelloWorldApiWithRetrofit();
     }
 
-    public static void callHelloWorldApi(HelloWorldRestService helloWorldRestService) {
+    public static void callHelloWorldApi() throws Exception {
+        MsApiRequest msApiRequest = new MsApiRequest(HttpLoggingInterceptor.Level.BODY);
+        msApiRequest.callEndpoint(apiEndpoint);
+    }
+
+    public static void callHelloWorldApiWithRetrofit() throws Exception {
+        MsRetrofitWrapper msRetrofitWrapper = new MsRetrofitWrapper(HttpLoggingInterceptor.Level.BODY);
+        HelloWorldRestService helloWorldRestService = msRetrofitWrapper.createService(HelloWorldRestService.class);
+
         Call<HelloWorldGetServicesResponse> call = helloWorldRestService.getServices();
 
         // this function will make an API call

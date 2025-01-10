@@ -56,6 +56,11 @@ public class MicroprofileConfigService {
     private String publicCertificateFile;
 
     /**
+     * Morgan Stanley API Url Domain
+     */
+    private String msUrlDomain;
+
+    /**
      * Constructor method
      * Reads values from config into class
      */
@@ -70,6 +75,8 @@ public class MicroprofileConfigService {
 
         this.publicCertificateFile = configProvider.getValue("public-certificate-file", String.class);
         this.checkFileExtension(publicCertificateFile, ".cer");
+
+        this.msUrlDomain = configProvider.getValue("ms-url-api-domain", String.class);
     }
 
     /**
@@ -93,7 +100,7 @@ public class MicroprofileConfigService {
     }
 
     /**
-     * This method returns the  MS OAuth2 token URI
+     * This method returns the MS OAuth2 token URI
      * @return MS OAuth2 token URI
      */
     public String getMsOAuth2TokenUri() {
@@ -154,5 +161,13 @@ public class MicroprofileConfigService {
         final FileInputStream fileInputStream = new FileInputStream(path.toFile());
         return (X509Certificate) CertificateFactory.getInstance("X.509")
             .generateCertificate(fileInputStream);
+    }
+
+    /**
+     * This method returns the Morgan Stanley api url domain
+     * @return msUrlDomain
+     */
+    public String getMsUrlDomain() {
+        return this.msUrlDomain;
     }
 }

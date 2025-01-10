@@ -18,18 +18,18 @@ import retrofit2.Response;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class TestHelloWorldRestServiceShould {
     private MockWebServer mockWebServer;
     private HelloWorldRestService helloWorldRestService;
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
     private final String EXAMPLE_GET_SERVICE_RESPONSE = "{\"response\":\"value\",\"time\":\"2022-01-01T00:00:00Z\"}";
+    private final String RESPONSE_VALUE = "value";
+    private final String TIME_VALUE = "2022-01-01T00:00:00Z";
     private final String MOCK_401_ERROR_RESPONSE = "{ \"statusCode\": 401, \"message\": \"Authentication required\" }";
-    private final String TEST_AUTH_TOKEN = "MOCK_BEARER_TOKEN";
+    private final String MOCK_BEARER_TOKEN = "MOCK_BEARER_TOKEN";
+    private final String EXPECTED_ENDPOINT = "/hello/world/v1/services";
 
     @BeforeEach
     public void setup_hello_world_rest_service() throws IOException {
@@ -39,7 +39,7 @@ public class TestHelloWorldRestServiceShould {
 
         // Mock MsClientAuthTokenService to return fake token
         MsClientAuthTokenService mockMsClientAuthTokenService = Mockito.mock(MsClientAuthTokenService.class);
-        Mockito.when(mockMsClientAuthTokenService.getAccessToken()).thenReturn(TEST_AUTH_TOKEN);
+        Mockito.when(mockMsClientAuthTokenService.getAccessToken()).thenReturn(MOCK_BEARER_TOKEN);
         AuthHeaderInterceptor authHeaderInterceptor = new AuthHeaderInterceptor(mockMsClientAuthTokenService);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -74,13 +74,13 @@ public class TestHelloWorldRestServiceShould {
         assertThat("Incorrect Response code", response.code(), is(200));
 
         HelloWorldGetServicesResponse data = response.body();
-        assertThat("Incorrect value response", data.getResponse(), is("value"));
-        assertThat("Incorrect time response", data.getTime(), is("2022-01-01T00:00:00Z"));
+        assertThat("Incorrect value response", data.getResponse(), is(RESPONSE_VALUE));
+        assertThat("Incorrect time response", data.getTime(), is(TIME_VALUE));
 
         // Check the request
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertThat("Incorrect path called",  recordedRequest.getPath(), is("/services"));
-        assertThat("Incorrect auth header", recordedRequest.getHeader("Authorization"), is("Bearer " + TEST_AUTH_TOKEN));
+        assertThat("Incorrect path called",  recordedRequest.getPath(), is(EXPECTED_ENDPOINT));
+        assertThat("Incorrect auth header", recordedRequest.getHeader("Authorization"), is("Bearer " + MOCK_BEARER_TOKEN));
     }
 
     @Test

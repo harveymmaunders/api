@@ -1,33 +1,18 @@
 # Java REST Client Example Project
 This project is a starting template for integrating with REST APIs on the API Platform.
 
-## Retrofit
-This example app uses plain Java, with no larger frameworks such as Spring Boot. It uses the retrofit library, which configures API calls as an interface. Please see the [HelloWorldRestService interface](./src/main/java/com/ms/infra/example/application/servies/HelloWorldRestService.java) for an example. You can find the Retrofit docs [here](https://square.github.io/retrofit/).
+## Using this template
+The first step is to create the DER encoded file and configure the properties file, as described below.
 
-Below are the example services we have configured:
+This template provides two methods for making API calls: using a simple OkHttp request or a Retrofit request. Using retrofit requires more code changes, so it is recommended to initally call the API with the OkHttp request.
 
-| Service         | Description                                                                                                                     |
-| --------------- |---------------------------------------------------------------------------------------------------------------------------------|
-| getServices     | Calls a GET request on the `services` endpoint.                                                                                 |
-| getStatus       | Calls a GET request on the `status` endpoint, showing how to use a void response body, path and query parameters, and a header. |
+To configure this application for a different API, the following changes need to be made (there are more details on retrofit below):
 
-The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint.
+| Method | Main Class  | What needs to be changed? |
+---------|-------------|---------------------------|
+| OkHttp Request | [`MsApiEndpoint`](./src/main/java/com/ms/infra/example/application/morganStanleyServices/MsApiRequest.java) | The `apiEndpoint` variable in [`ExampleApplication`](./src/main/java/com/ms/infra/example/application/ExampleApplication.java). |
+| Retrofit | [`MsRetrofitWrapper`](./src/main/java/com/ms/infra/example/application/morganStanleyServices/MsRetrofitWrapper.java) | Create a response type in the [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/) directory. </br> Create a service in the [`services`](./src/main/java/com/ms/infra/example/application/services/) directory. |
 
-## Running the Java Client application
-It is important to ensure that the Java SDK is installed and the `JAVA_HOME` environment variable has been set.
-This can be checked by performing the following:
-
-* Windows cmd: `echo %JAVA_HOME%`
-* Mac/Linux terminal: `echo $JAVA_HOME`
-
-If the result is empty, you will need to download and configure Java on your machine.
-
-Once the Java SDK is installed and the `JAVA_HOME` environment variable has been set it is possible to run the application.
-Type in the appropriate command to launch the application
-
-* Windows: `gradlew.bat bootRun`
-* Mac/Linux: `./gradlew bootRun`
-curl -X GET -v --header "Authorization: Bearer $ACCESS_TOKEN" --header 'Accept: application/json' https://api.morganstanley.com/hello/services'
 
 ## Create DER Encoded File
 For this example the RSA Private key that was generated, `private_key.pem`, is not in a format that Java will understand and needs to be converted to a binary encoding.
@@ -53,8 +38,40 @@ Make these changes to the `META-INF/microprofile-config.properties` resource fil
 | `client-app-scope`                | The scope/s that will be sent to from your Morgan Stanley contact                       | True     |
 | `private-key-file`                | The path to the private_key.der that has been created                                   | True     |
 | `public-certificate-file`         | The path to the public_key.cer that was created and sent to your Morgan Stanley contact | True     |
+| `ms-url-api-domain`               | Morgan Stanley API Url Domain (Currently set to uat)                                    | True     |
 | `proxy-host`                      | Optional proxy host                                                                     | False    |
 | `proxy-port`                      | Optional proxy port                                                                     | False    |
+
+## Retrofit
+This example app uses plain Java, with no larger frameworks such as Spring Boot. It uses the retrofit library, which configures API calls as an interface. Please see the [HelloWorldRestService interface](./src/main/java/com/ms/infra/example/application/servies/HelloWorldRestService.java) for an example. You can find the Retrofit docs [here](https://square.github.io/retrofit/).
+
+Below are the example services we have configured (using the hello world endpoint):
+
+| Service         | Description                                                                                                                     |
+| --------------- |---------------------------------------------------------------------------------------------------------------------------------|
+| getServices     | Calls a GET request on the `services` endpoint.                                                                                 |
+| getStatus       | Calls a GET request on the `status` endpoint, showing how to use a void response body, path and query parameters, and a header. |
+
+The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint. 
+
+### Customising the service interfaces
+To switch 
+
+## Running the Java Client application
+It is important to ensure that the Java SDK is installed and the `JAVA_HOME` environment variable has been set.
+This can be checked by performing the following:
+
+* Windows cmd: `echo %JAVA_HOME%`
+* Mac/Linux terminal: `echo $JAVA_HOME`
+
+If the result is empty, you will need to download and configure Java on your machine.
+
+Once the Java SDK is installed and the `JAVA_HOME` environment variable has been set it is possible to run the application.
+Type in the appropriate command to launch the application
+
+* Windows: `gradlew.bat bootRun`
+* Mac/Linux: `./gradlew bootRun`
+curl -X GET -v --header "Authorization: Bearer $ACCESS_TOKEN" --header 'Accept: application/json' https://api.morganstanley.com/hello/services'
 
 # Legal
 
