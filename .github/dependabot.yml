@@ -8,6 +8,15 @@ updates:
       interval: "monthly"
       day: "monday"
       time: "08:00"
+  
+  - package-ecosystem: "gradle"
+    directory: "/client-samples/java/websockets"
+    commit-message:
+      prefix: "gradle"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
 
   - package-ecosystem: "pip"
     directory: "/client-samples/python/rest"

@@ -1,17 +1,21 @@
-defaults:
-  run:
-    working-directory: ./client-samples/java/rest
 name: Java CI
+
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
+  java-checkout-and-test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    strategy:
+      matrix:
+        working-directory:
+          - ./client-samples/java/rest
+          - ./client-samples/java/websockets
+    defaults:
+      run:
+        working-directory: ${{ matrix.working-directory }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
