@@ -41,6 +41,7 @@ Make these changes to the `META-INF/microprofile-config.properties` resource fil
 | `client-app-scope`                | The scope/s that will be sent to from your Morgan Stanley contact                       | True     |
 | `private-key-file`                | The path to the private_key.der that has been created                                   | True     |
 | `public-certificate-file`         | The path to the public_key.cer that was created and sent to your Morgan Stanley contact | True     |
+| `api-url`                         | Morgan Stanley API url                                                                  | True     | 
 | `proxy-host`                      | Optional proxy host                                                                     | False    |
 | `proxy-port`                      | Optional proxy port                                                                     | False    |
 
