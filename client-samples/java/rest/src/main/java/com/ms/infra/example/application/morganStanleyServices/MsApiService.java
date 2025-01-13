@@ -12,7 +12,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class MsApiRequest {
+/**
+ * This class is an alternative to the MsRetrofitWrapper for calling Morgan Stanley APIs.
+ * Ensure that the correct properties are set in the microprofile-config.properties file.
+ * To call a Morgan Stanley API, run the callEndpoint method, with the required endpoint.
+ */
+public class MsApiService {
     /**
      * Logging
      */
@@ -33,7 +38,7 @@ public class MsApiRequest {
      * @param logLevel Log interceptor level
      * @throws Exception throws exception if error when creating msClientAuthTokenService
      */
-    public MsApiRequest(HttpLoggingInterceptor.Level logLevel) throws Exception {
+    public MsApiService(HttpLoggingInterceptor.Level logLevel) throws Exception {
         MicroprofileConfigService microprofileConfigService = new MicroprofileConfigService();
         MsClientAuthTokenService msClientAuthTokenService = new MsClientAuthTokenService(microprofileConfigService);
         this.urlDomain = microprofileConfigService.getMsUrlDomain();
@@ -45,7 +50,7 @@ public class MsApiRequest {
      * @param okHttpClient
      * @param urlDomain
      */
-    public MsApiRequest(OkHttpClient okHttpClient, String urlDomain) {
+    public MsApiService(OkHttpClient okHttpClient, String urlDomain) {
         this.okHttpClient = okHttpClient;
         this.urlDomain = urlDomain;
     }

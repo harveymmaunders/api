@@ -1,7 +1,7 @@
 package com.ms.infra.example.application;
 
 import com.ms.infra.example.application.interceptors.AuthHeaderInterceptor;
-import com.ms.infra.example.application.morganStanleyServices.MsApiRequest;
+import com.ms.infra.example.application.morganStanleyServices.MsApiService;
 import com.ms.infra.example.application.morganStanleyServices.MsClientAuthTokenService;
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockResponse;
@@ -18,7 +18,7 @@ import java.net.MalformedURLException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class TestMsApiRequestShould {
+public class TestMsApiServiceShould {
     private OkHttpClient okHttpClient;
     private MockWebServer mockWebServer;
 
@@ -54,9 +54,9 @@ public class TestMsApiRequestShould {
         mockWebServer.enqueue(mockResponse);
 
         System.out.println(mockWebServer.url("/"));
-        MsApiRequest msApiRequest = new MsApiRequest(okHttpClient, mockWebServer.url("").toString());
+        MsApiService msApiService = new MsApiService(okHttpClient, mockWebServer.url("").toString());
 
-        msApiRequest.callEndpoint(TEST_ENDPOINT);
+        msApiService.callEndpoint(TEST_ENDPOINT);
 
         // Check the request
         RecordedRequest recordedRequest = mockWebServer.takeRequest();

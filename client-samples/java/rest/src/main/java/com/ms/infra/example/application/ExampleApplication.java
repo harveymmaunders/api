@@ -2,7 +2,7 @@ package com.ms.infra.example.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ms.infra.example.application.morganStanleyServices.MsApiRequest;
+import com.ms.infra.example.application.morganStanleyServices.MsApiService;
 import com.ms.infra.example.application.morganStanleyServices.MsRetrofitWrapper;
 import com.ms.infra.example.application.responseTypes.HelloWorldGetServicesResponse;
 import com.ms.infra.example.application.services.HelloWorldRestService;
@@ -31,8 +31,8 @@ public class ExampleApplication {
     }
 
     public static void callHelloWorldApi() throws Exception {
-        MsApiRequest msApiRequest = new MsApiRequest(HttpLoggingInterceptor.Level.BODY);
-        msApiRequest.callEndpoint(apiEndpoint);
+        MsApiService msApiService = new MsApiService(HttpLoggingInterceptor.Level.BODY);
+        msApiService.callEndpoint(apiEndpoint);
     }
 
     public static void callHelloWorldApiWithRetrofit() throws Exception {
