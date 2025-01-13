@@ -4,18 +4,25 @@ updates:
     directory: "/client-samples/java/rest"
     commit-message:
       prefix: "gradle"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
 
   - package-ecosystem: "pip"
     directory: "/client-samples/python/rest"
     commit-message:
       prefix: "pip-rest"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
 
   - package-ecosystem: "pip"
     directory: "/client-samples/python/websockets"
     commit-message:
       prefix: "pip-websocket"
-
-schedule:
-  interval: "monthly"
-  day: "monday"
-  time: "08:00"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
