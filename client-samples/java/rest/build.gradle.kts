@@ -7,7 +7,6 @@ group = "example.application"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(group="com.google.guava", name="guava", version="${property("googleGuavaVersion")}")
     implementation(group="com.microsoft.azure", name="msal4j", version="${property("microsoftAzureMsal4jVersion")}")
 
     // okhttp/retrofit
@@ -22,10 +21,7 @@ dependencies {
 
     // microprofile
     implementation(group="org.eclipse.microprofile", name="microprofile", version="${property("eclipseMicroprofileVersion")}")
-    implementation(group="org.eclipse.microprofile.config", name="microprofile-config-api", version="${property("eclipseMicroprofileConfigVersion")}")
     implementation(group="io.smallrye.config", name="smallrye-config", version="${property("smallRyeConfigVersion")}")
-    implementation(group="org.osgi", name="org.osgi.annotation.bundle", version= "${property("osgiAnnotationBundleVersion")}")
-    implementation(group="jakarta.annotation", name="jakarta.annotation-api", version="${property("jakartaAnnotationVersion")}")
 
     // testing
     testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="${property("squareupOkhttp3MockwebserverVersion")}")
