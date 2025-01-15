@@ -2,10 +2,14 @@ package com.ms.infra.example.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ms.infra.example.application.morganStanleyServices.MsApiService;
+import com.ms.infra.example.application.config.MicroprofileConfigService;
+import com.ms.infra.example.application.interceptors.AuthHeaderInterceptor;
+import com.ms.infra.example.application.morganStanleyServices.MsClientAuthTokenService;
 import com.ms.infra.example.application.morganStanleyServices.MsRetrofitWrapper;
 import com.ms.infra.example.application.responseTypes.HelloWorldGetServicesResponse;
 import com.ms.infra.example.application.services.HelloWorldRestService;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +35,32 @@ public class ExampleApplication {
     }
 
     public static void callHelloWorldApi() throws Exception {
-        MsApiService msApiService = new MsApiService(HttpLoggingInterceptor.Level.BODY);
-        msApiService.callEndpoint(apiEndpoint);
+        // Class to read config properties
+        MicroprofileConfigService microprofileConfigService = new MicroprofileConfigService();
+
+        // Get auth token
+        MsClientAuthTokenService msClientAuthTokenService = new MsClientAuthTokenService(microprofileConfigService);
+
+        // Logging interceptor
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        // Add auth token to every request
+        AuthHeaderInterceptor authHeaderInterceptor = new AuthHeaderInterceptor(msClientAuthTokenService);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authHeaderInterceptor)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(microprofileConfigService.getMsUrlDomain() + apiEndpoint)
+                .build();
+
+        // Execute request and log response
+        okhttp3.Response response = okHttpClient.newCall(request).execute();
+        logger.info("Response code: {}", response.code());
+        logger.info("Response: {}", response.body().string());
     }
 
     public static void callHelloWorldApiWithRetrofit() throws Exception {

@@ -4,14 +4,15 @@ This project is a starting template for integrating with REST APIs on the API Pl
 ## Using this template
 The first step is to create the DER encoded file and configure the properties file, as described below.
 
-This template provides two methods for making API calls: using a simple OkHttp request or a Retrofit request. Using retrofit requires more code changes, so it is recommended to initally call the API with the OkHttp request.
+This template provides two methods for making API calls: using a simple OkHttp request or a Retrofit request. The okHttp method is shown in a singular function with sequential instructions, whereas the retrofit code has been wrapped in the `MsRetrofitWrapper` class.
+Using retrofit requires more code changes, so it is recommended to initially call the API with the OkHttp request.
 
 To configure this application for a different API, the following changes need to be made (there are more details on retrofit below):
 
-| Method | Main Class  | What needs to be changed? |
----------|-------------|---------------------------|
-| OkHttp Request | [`MsApiEndpoint`](./src/main/java/com/ms/infra/example/application/morganStanleyServices/MsApiRequest.java) | The `apiEndpoint` variable in [`ExampleApplication`](./src/main/java/com/ms/infra/example/application/ExampleApplication.java). |
-| Retrofit | [`MsRetrofitWrapper`](./src/main/java/com/ms/infra/example/application/morganStanleyServices/MsRetrofitWrapper.java) | Create a response type in the [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/) directory. </br> Create a service in the [`services`](./src/main/java/com/ms/infra/example/application/services/) directory. |
+| Method         | Function in ExampleApplication  | What needs to be changed?                                                                                                                                                                                                                     |
+|----------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OkHttp Request | `callHelloWorldApi`             | The `apiEndpoint` variable in Example Application.                                                                                                                                                                                            |
+| Retrofit       | `callHelloWorldApiWithRetrofit` | Create a response type in the [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/) directory. </br> Create a service in the [`services`](./src/main/java/com/ms/infra/example/application/services/) directory. |
 
 
 ## Create DER Encoded File
@@ -52,10 +53,7 @@ Below are the example services we have configured (using the hello world endpoin
 | getServices     | Calls a GET request on the `services` endpoint.                                                                                 |
 | getStatus       | Calls a GET request on the `status` endpoint, showing how to use a void response body, path and query parameters, and a header. |
 
-The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint. 
-
-### Customising the service interfaces
-To switch 
+The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint.
 
 ## Running the Java Client application
 It is important to ensure that the Java SDK is installed and the `JAVA_HOME` environment variable has been set.
