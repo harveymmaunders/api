@@ -11,7 +11,7 @@ public class TestAuthHeaderShould {
     public final String EXPECTED_AUTH_HEADER = "Bearer " + BEARER_TOKEN;
 
     @Test
-    void returnCorrectHeader() {
+    void return_correct_header() {
         AuthHeader authHeader = new AuthHeader(BEARER_TOKEN);
         assertThat("Incorrect header value", authHeader.getHeaderValue(), is(EXPECTED_AUTH_HEADER));
     }

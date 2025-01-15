@@ -26,22 +26,22 @@ public class TestMicroprofileConfigServiceShould {
     private final String EXPECTED_PUBLIC_CERTIFICATE_ERROR_MESSAGE = EXPECTED_FILE_ERROR_MESSAGE + ".cer";
 
     @BeforeEach
-    void setupConfigService() {
+    void setup_config_service() {
         microprofileConfigService = new MicroprofileConfigService();
     }
 
     @Test
-    void shouldGetCorrectMsTokenUri() {
+    void get_correct_ms_token_uri() {
         assertThat("Incorrect value for Morgan Stanley OAuth2 Token URI", microprofileConfigService.getMsOAuth2TokenUri(), is(TEST_MS_OAUTH2_TOKEN_URI));
     }
 
     @Test
-    void shouldGetCorrectClientId() {
+    void get_correct_client_id() {
         assertThat("Incorrect value for Client App ID", microprofileConfigService.getClientAppId(), is(TEST_CLIENT_APP_ID));
     }
 
     @Test
-    void shouldGetCorrectClientAppScope() {
+    void get_correct_client_app_scope() {
         assertThat("Incorrect value for Client App Scope", microprofileConfigService.getClientAppScope(), is(TEST_CLIENT_APP_SCOPE));
     }
 
@@ -51,13 +51,13 @@ public class TestMicroprofileConfigServiceShould {
     }
 
     @Test
-    void proxyShouldHaveCorrectNameAndPort() {
+    void set_correct_proxy_host_and_port() {
         assertThat("Proxy host is not correct", System.getProperty("https.proxyHost"), equalTo(TEST_PROXY_HOST));
         assertThat("Proxy port is not correct", System.getProperty("https.proxyPort"), equalTo(TEST_PROXY_PORT));
     }
 
     @Test
-    void shouldErrorIfPrivateKeyFileDoesNotEndWithDer() {
+    void error_if_private_key_file_does_not_end_with_der() {
         Exception exception = assertThrows(Exception.class, () -> {
             microprofileConfigService.checkFileExtension(INCORRECT_FILE_TYPE_NAME, ".der");
         });
@@ -66,7 +66,7 @@ public class TestMicroprofileConfigServiceShould {
     }
 
     @Test
-    void shouldErrorIfPublicKeyFileDoesNotEndWithCer() {
+    void error_if_public_key_file_does_not_end_with_cer() {
         Exception exception = assertThrows(Exception.class, () -> {
             microprofileConfigService.checkFileExtension(INCORRECT_FILE_TYPE_NAME, ".cer");
         });

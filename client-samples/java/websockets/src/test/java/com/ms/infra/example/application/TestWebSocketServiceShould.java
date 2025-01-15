@@ -44,7 +44,7 @@ public class TestWebSocketServiceShould {
     }
 
     @AfterEach
-    void tearDown() {
+    void shutdown_mock_server() {
         server.shutdown();
     }
 
