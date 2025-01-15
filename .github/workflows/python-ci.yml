@@ -1,9 +1,10 @@
 name: Python Tests
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 jobs:
   python-checkout-and-test:
     runs-on: ubuntu-latest
