@@ -37,18 +37,11 @@ tasks {
     build {
         dependsOn(shadowJar) // required to build a fat jar
     }
-    jar {
-        manifest {
-            attributes(mapOf("Main-Class" to "com.ms.infra.example.application.ExampleApplication"))
-        }
-    }
     test {
-        minHeapSize = "128m" // initial heap size
-        maxHeapSize = "512m" // maximum heap size
         useJUnitPlatform()
     }
     wrapper {
-        gradleVersion = "8.3"
+        gradleVersion = "8.10"
         distributionType = Wrapper.DistributionType.ALL
     }
 }
