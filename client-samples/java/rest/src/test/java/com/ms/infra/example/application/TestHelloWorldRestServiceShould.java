@@ -32,7 +32,7 @@ public class TestHelloWorldRestServiceShould {
     private final String EXPECTED_ENDPOINT = "/hello/world/v1/services";
 
     @BeforeEach
-    public void setup_hello_world_rest_service() throws IOException {
+    void setup_hello_world_rest_service() throws IOException {
         // Create a mock web server
         mockWebServer = new MockWebServer();
         mockWebServer.start();
@@ -50,12 +50,12 @@ public class TestHelloWorldRestServiceShould {
     }
 
     @AfterEach
-    public void end_mock_web_server() throws IOException {
+    void end_mock_web_server() throws IOException {
         mockWebServer.shutdown();
     }
 
     @Test
-    public void successfully_call_api() throws IOException, InterruptedException {
+    void successfully_call_api() throws IOException, InterruptedException {
         // Create a mock response
         MockResponse mockResponse = new MockResponse()
             .setResponseCode(200)
@@ -84,7 +84,7 @@ public class TestHelloWorldRestServiceShould {
     }
 
     @Test
-    public void deal_with_error_call() throws IOException {
+    void deal_with_error_call() throws IOException {
         // Create a mock error response
         MockResponse mockResponse = new MockResponse()
             .setResponseCode(401)
