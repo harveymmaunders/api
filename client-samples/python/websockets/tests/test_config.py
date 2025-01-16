@@ -14,14 +14,14 @@ class TestConfigSetup(unittest.TestCase):
         Test that the correct config is loaded.
         """
         config = load_config("./tests/test-config.json")
-        assert config == MOCK_CONFIG, "Config loaded correctly"
+        assert config == MOCK_CONFIG, "Incorrect config values"
 
     def test_proxies(self):
         """
         Test that the correct proxies are loaded.
         """
         proxies = get_proxies(MOCK_CONFIG)
-        assert proxies == TEST_PROXY_CONFIG, "Proxies loaded correctly"
+        assert proxies == TEST_PROXY_CONFIG, "Incorrect proxy values"
 
     def test_null_proxy_config(self):
         """

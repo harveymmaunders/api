@@ -216,7 +216,7 @@ class WebSocketHandler:
         self.verify_http = verify_http
         self.retry_bad_handshake_status = retry_bad_handshake_status
 
-    def connect(self):
+    def connect(self, retry=True):
         # instantiate new app to ensure old connection is properly cleaned up
         self.ws = websocket.WebSocketApp(
             self.url,
@@ -257,6 +257,9 @@ class WebSocketHandler:
                     proxy_type=proxy_type,
                     sslopt=ssl_options,
                 )
+                if not retry:
+                    self.ws.close()
+                    break
                 if teardown:
                     self.ws.close()
                 print(
