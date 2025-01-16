@@ -19,7 +19,7 @@ public interface HelloWorldRestService {
      *
      * @return A {@link Call} object representing the GET request to the "services" endpoint.
      */
-    @GET("services")
+    @GET("hello/world/v1/services")
     Call<HelloWorldGetServicesResponse> getServices();
 
     /**
@@ -31,7 +31,7 @@ public interface HelloWorldRestService {
      * @param delay        The query parameter representing the delay in seconds.
      * @return A {@link Call} object representing the GET request to the "status/{statusCode}" endpoint.
      */
-    @GET("status/{statusCode}")
+    @GET("hello/world/v1/status/{statusCode}")
     Call<Void> getStatus(@Header("myCustomHeader") String customHeader,
                          @Path("statusCode") int statusCode,
                          @Query("delay") int delay);
