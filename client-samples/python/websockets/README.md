@@ -23,6 +23,7 @@ source virtualenv/bin/activate # on Linux, using bash
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+pip install -r dev-requirements.txt
 ```
 
 ## Configuration

@@ -50,6 +50,7 @@ python -m venv venv
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+pip install -r dev-requirements.txt
 
 python client-application.py
 ```
