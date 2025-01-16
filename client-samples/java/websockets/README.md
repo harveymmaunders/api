@@ -62,7 +62,7 @@ Once you have an access token (please see the relevant section of the client set
 Note that this example sets `$ACCESS_TOKEN`, `$PROXY_HOST` and `$PROXY_PORT` as environment variables beforehand.
 
 ```bash
-wscat -H "Authorization: Bearer $ACCESS_TOKN" --proxy "http://$PROXY_HOST:$PROXY_PORT" -c wss://api.morganstanley.com/websocket-api
+wscat -H "Authorization: Bearer $ACCESS_TOKEN" --proxy "http://$PROXY_HOST:$PROXY_PORT" -c wss://api.morganstanley.com/websocket-api
 
 # Legal
 
