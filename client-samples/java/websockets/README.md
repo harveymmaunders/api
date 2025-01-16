@@ -46,7 +46,23 @@ Type in the appropriate command to launch the application
 
 * Windows: `gradlew.bat bootRun`
 * Mac/Linux: `./gradlew bootRun`
-curl -X GET -v --header "Authorization: Bearer $ACCESS_TOKEN" --header 'Accept: application/json' https://api.morganstanley.com/hello/services'
+
+# Manual testing of WebSocket APIs with wscat
+An alternative to this script is to test your application using a command-line tool. `cURL` is intended for regular HTTP requests, and is not recommended for testing WebSockets.
+One utility you can use instead is [`wscat`](https://github.com/websockets/wscat). Please see the `wscat` docs for full reference on the available options.
+
+## Installation
+`wscat` is available on NPM.
+
+```bash
+npm install -g wscat
+```
+
+Once you have an access token (please see the relevant section of the client setup guide) you can call a WebSocket API as follows.
+Note that this example sets `$ACCESS_TOKEN`, `$PROXY_HOST` and `$PROXY_PORT` as environment variables beforehand.
+
+```bash
+wscat -H "Authorization: Bearer $ACCESS_TOKN" --proxy "http://$PROXY_HOST:$PROXY_PORT" -c wss://api.morganstanley.com/websocket-api
 
 # Legal
 
