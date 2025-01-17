@@ -32,14 +32,13 @@ public class MsRetrofitWrapper {
 
     /**
      * Constructor
-     * @param url API url
      * @param logLevel Log interceptor level
      * @throws Exception throws exception if error when creating msClientAuthTokenService
      */
-    public MsRetrofitWrapper(String url, Level logLevel) throws Exception {
+    public MsRetrofitWrapper(Level logLevel) throws Exception {
         this.msClientAuthTokenService = new MsClientAuthTokenService(MICROPROFILE_CONFIG_SERVICE);
         this.retrofit = new Retrofit.Builder()
-            .baseUrl(url)
+            .baseUrl(MICROPROFILE_CONFIG_SERVICE.getMsUrlDomain())
             .addConverterFactory(JacksonConverterFactory.create())
             .client(this.getOkHttpClient(logLevel))
             .build();

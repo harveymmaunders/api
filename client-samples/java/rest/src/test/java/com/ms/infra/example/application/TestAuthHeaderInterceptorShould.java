@@ -24,13 +24,13 @@ public class TestAuthHeaderInterceptorShould {
     public MockWebServer mockServer = new MockWebServer();
 
     @BeforeEach
-    public void mock_ms_client_auth_token_service() throws MalformedURLException {
+    void mock_ms_client_auth_token_service() throws MalformedURLException {
         msClientAuthTokenServiceMock = Mockito.mock(MsClientAuthTokenService.class);
         Mockito.when(msClientAuthTokenServiceMock.getAccessToken()).thenReturn(MOCK_TOKEN);
     }
 
     @Test
-    public void add_auth_header_to_call() throws IOException, InterruptedException {
+    void add_auth_header_to_call() throws IOException, InterruptedException {
         mockServer.enqueue(new MockResponse().setBody("Test call"));
 
         OkHttpClient client = new OkHttpClient.Builder()

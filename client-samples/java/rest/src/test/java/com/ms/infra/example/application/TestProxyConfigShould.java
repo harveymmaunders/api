@@ -15,13 +15,13 @@ import static org.hamcrest.core.Is.is;
 
 public class TestProxyConfigShould {
     @BeforeEach
-    public void reset_proxy_properties() {
+    void reset_proxy_properties() {
         System.clearProperty("https.proxyHost");
         System.clearProperty("https.proxyPort");
     }
 
     @Test
-    public void set_proxy_as_null_if_not_set_in_config() {
+    void set_proxy_as_null_if_not_set_in_config() {
         // Mock config provider to return empty optional rather than value
         Config configProviderMock = Mockito.mock(ConfigProvider.getConfig().getClass());
         Optional<String> emptyOptional = Optional.empty();
