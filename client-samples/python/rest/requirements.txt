@@ -5,4 +5,4 @@ parameterized==0.9.0
 pytest==8.3.4
 rel==0.4.7
 requests-mock==1.12.1
-six==1.15.0
+six==1.17.0
