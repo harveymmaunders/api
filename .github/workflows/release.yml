@@ -1,0 +1,36 @@
+name: Github Release for ZIP templates
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          language: [java, python]
+          type: [rest, websockets]
+    steps:
+        # Step 1: Checkout the repository
+        - name: Checkout repository
+          uses: actions/checkout@v3
+  
+        # Step 2: Create a ZIP archive of the files
+        - name: Create ZIP archive
+          run: |
+            mkdir -p artifacts
+            cd client-samples/${{ matrix.language }}/${{ matrix.type }}
+            zip -r ../../../artifacts/${{ matrix.language }}-${{ matrix.type }}.zip .
+  
+        # Step 3: Upload binaries to release
+        - name: Upload binaries to release
+          uses: svenstaro/upload-release-action@v2
+          with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: artifacts/${{ matrix.language }}-${{ matrix.type }}.zip
+            tag: Templates
+            overwrite: true
+            file_glob: true
