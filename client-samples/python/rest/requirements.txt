@@ -1,6 +1,6 @@
 black==24.3.0
 chardet==3.0.4
-msal==1.25.0
+msal==1.31.1
 parameterized==0.9.0
 pytest==8.3.4
 rel==0.4.9.19
