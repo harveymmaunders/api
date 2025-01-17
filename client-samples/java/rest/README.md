@@ -69,7 +69,7 @@ Type in the appropriate command to launch the application
 
 * Windows: `gradlew.bat bootRun`
 * Mac/Linux: `./gradlew bootRun`
-curl -X GET -v --header "Authorization: Bearer $ACCESS_TOKEN" --header 'Accept: application/json' https://api.morganstanley.com/hello/services'
+
 
 # Legal
 

@@ -7,7 +7,7 @@ It uses the following libraries:
 It requires some simple security configuration to enable you to authenticate to the platform.
 
 ## Requirements
-- Python 3.8+
+- Python 3.9+
 - A client application on Morgan Stanley Azure AD tenant. Please talk to your contact at Morgan Stanley to set this up.
 - A self-signed public/private key pair. Please see the client setup guide for instructions to generate this.
 - The thumbprint (also known as fingerprint) for your certificate. 

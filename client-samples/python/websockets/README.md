@@ -4,6 +4,7 @@ It uses the following libraries:
 - [Microsoft's `msal` library](https://github.com/AzureAD/microsoft-authentication-library-for-python) for getting access tokens from Azure AD
 - The [`websocket-client` library](https://github.com/websocket-client/websocket-client/tree/master) to handle WebSocket connections
 
+It requires some simple security configuration to enable you to authenticate to the platform.
 
 ## Requirements
 - Python 3.9+
@@ -11,19 +12,6 @@ It uses the following libraries:
 - A self-signed public/private key pair. Please see the Morgan Stanley API Onboarding instructions for help generating these.
 - The thumbprint (also known as fingerprint) for your certificate. 
   - You can retrieve this from your certificate using OpenSSL with the following command: `openssl x509 -noout -fingerprint -in cert.cer`
-
-## Installation
-```bash
-# create a virtual environment in the 'virtualenv' folder
-# NOTE: this is optional but recommended
-python -m venv venv
-
-source virtualenv/bin/activate # on Linux, using bash
-.\venv\Scripts\activate # on Windows
-
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-```
 
 ## Configuration
 Create a file, config.json, with the following properties:
@@ -52,6 +40,40 @@ If you want to reduce the amount of logs output, please remove this line from th
 websocket.enableTrace(True)
 ```
 
+## Running the application
+It is important to ensure that you have Python 3.9 or greater on your machine. To check if Python is on your machine perform the following:
+
+* Windows: `python --version`
+* Mac/Linux: `python --version`
+
+If the command is not recognised then you will need to install Python on your machine. 
+This can be done by visiting <https://www.python.org/downloads/> where you can follow the instructions to download and install python.
+
+Once Python is installed you can run following to launch the application. Please refer to the docs for current best practice on creating a virtual env https://docs.python.org/3/tutorial/venv.html:
+
+Windows:    
+```cmd
+python -m venv venv
+.\venv\Scripts\activate
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+python client.py
+```
+
+Mac/Linux:   
+```bash
+python -m venv venv
+. venv/bin/activate
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python client.py
+```
+
+The application will launch and connect to the Morgan Stanley API offering and output the result.
+
 ## Testing
 The tests have been built using the `unittest` framework, but can be run using the `pytest` command.
 ```bash
@@ -63,11 +85,6 @@ This project uses `black` to lint its source code for readability. To lint the c
 
 ```bash
 black .
-```
-
-## Running the app
-```bash
-python client.py
 ```
 
 # Manual testing of WebSocket APIs with wscat
