@@ -87,7 +87,7 @@ class TestApiCall(unittest.TestCase):
 
         # If thread is still alive after 5 seconds, fail the test
         if thread.is_alive():
-            self.fail("Connection attempt timed out after 5 seconds.")
+            self.fail("websocket_handler.connect() took longer than 5 seconds to run")
 
         self.websocket_handler.on_open.assert_called_once()
         self.websocket_handler.on_message.assert_called_once()
