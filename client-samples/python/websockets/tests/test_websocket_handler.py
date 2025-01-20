@@ -1,10 +1,13 @@
-import sys
 import os
-import subprocess
+import sys
+import asyncio
+import threading
 from time import sleep
 import unittest
-from unittest.mock import MagicMock
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
+
+from websockets.asyncio.server import serve
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -17,9 +20,24 @@ LOCAL_MOCK_CONFIG["proxy_port"] = None
 
 MOCK_TOKEN = "mock_token"
 
-API_HOST = "127.0.0.1"
-API_PORT = 13254
+API_HOST = "localhost"
+API_PORT = 8765
 API_URL = f"ws://{API_HOST}:{API_PORT}"
+
+
+async def on_connect(websocket):
+    await websocket.send("Connected")
+    await asyncio.sleep(2)
+    await websocket.close()
+
+
+async def run_server():
+    async with serve(on_connect, API_HOST, API_PORT) as server:
+        await server.serve_forever()
+
+
+def start_echo_server():
+    asyncio.run(run_server())
 
 
 class TestApiCall(unittest.TestCase):
@@ -46,24 +64,34 @@ class TestApiCall(unittest.TestCase):
         self.acquire_token_patch.stop()
         self.get_client_app_patch.stop()
         self.get_requests_ca_bundle_patch.stop()
-        return super().tearDown()
 
-    def start_server(self):
+    def connect(self):
+        self.websocket_handler.connect(retry=False)
+
+    def test_websocket_handler_connects_and_receives_messgae(self):
         """
-        Start the websocket server.
+        Connect to a websockets echo server, and test websocket handler can connect and recieve messages.
         """
-        return subprocess.Popen([sys.executable, "tests/start_websocket_server.py"])
+        # As the thread is set as a daemon, the code will exit, once main thread is done.
+        server_thread = threading.Thread(target=start_echo_server, daemon=True)
+        server_thread.start()
+        sleep(1)
 
-    def test_run_tasks(self):
-        websocket_handler = create_connection(LOCAL_MOCK_CONFIG, API_URL)
-        websocket_handler.on_open = MagicMock()
-        websocket_handler.on_message = MagicMock()
+        self.websocket_handler = create_connection(LOCAL_MOCK_CONFIG, API_URL)
+        self.websocket_handler.on_open = MagicMock()
+        self.websocket_handler.on_message = MagicMock()
 
-        process = self.start_server()
-        sleep(2)
-        websocket_handler.connect(retry=False)
+        thread = threading.Thread(target=self.connect)
+        thread.start()
+        thread.join(timeout=5)
 
-        process.terminate()  # ensure the subprocess has stopped running
+        # If thread is still alive after 5 seconds, fail the test
+        if thread.is_alive():
+            self.fail("Connection attempt timed out after 5 seconds.")
 
-        websocket_handler.on_open.assert_called_once()
-        websocket_handler.on_message.assert_called_once()
+        self.websocket_handler.on_open.assert_called_once()
+        self.websocket_handler.on_message.assert_called_once()
+
+
+if __name__ == "__main__":
+    unittest.main()
