@@ -63,6 +63,7 @@ Note that this example sets `$ACCESS_TOKEN`, `$PROXY_HOST` and `$PROXY_PORT` as 
 
 ```bash
 wscat -H "Authorization: Bearer $ACCESS_TOKEN" --proxy "http://$PROXY_HOST:$PROXY_PORT" -c wss://api.morganstanley.com/websocket-api
+```
 
 # Legal
 
