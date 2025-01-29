@@ -44,7 +44,7 @@ websocket.enableTrace(True)
 It is important to ensure that you have Python 3.9 or greater on your machine. To check if Python is on your machine perform the following:
 
 * Windows: `python --version`
-* Mac/Linux: `python --version`
+* Mac/Linux: `python3 --version`
 
 If the command is not recognised then you will need to install Python on your machine. 
 This can be done by visiting <https://www.python.org/downloads/> where you can follow the instructions to download and install python.
@@ -65,13 +65,13 @@ python client.py
 
 Mac/Linux:   
 ```bash
-python -m venv venv
+python3 -m venv venv
 . venv/bin/activate
 
-python -m pip install --upgrade pip
+pip install --upgrade pip
 pip install -r requirements.txt
 pip install -r dev-requirements.txt
-python client.py
+python3 client.py
 ```
 
 The application will launch and connect to the Morgan Stanley API offering and output the result.
