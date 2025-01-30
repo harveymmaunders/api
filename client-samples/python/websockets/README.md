@@ -44,7 +44,7 @@ websocket.enableTrace(True)
 It is important to ensure that you have Python 3.9 or greater on your machine. To check if Python is on your machine perform the following:
 
 * Windows: `python --version`
-* Mac/Linux: `python --version`
+* Mac/Linux: `python --version` # if the version is Python 2, then use `python3` instead
 
 If the command is not recognised then you will need to install Python on your machine. 
 This can be done by visiting <https://www.python.org/downloads/> where you can follow the instructions to download and install python.
@@ -68,7 +68,7 @@ Mac/Linux:
 python -m venv venv
 . venv/bin/activate
 
-python -m pip install --upgrade pip
+pip install --upgrade pip
 pip install -r requirements.txt
 pip install -r dev-requirements.txt
 python client.py
