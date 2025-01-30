@@ -166,4 +166,4 @@ if __name__ == "__main__":
     config = load_config("config.json")
 
     response = call_api(config)
-    print("API call result: %s" % json.dumps(response, indent=2))
+    print("API call result: %s" % json.dumps(response.json(), indent=2))
