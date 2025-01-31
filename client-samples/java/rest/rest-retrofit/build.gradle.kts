@@ -7,12 +7,13 @@ group = "example.application"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    //msal4j
     implementation(group="com.microsoft.azure", name="msal4j", version="1.17.3")
 
-    // okhttp
+    // okhttp/retrofit
     implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.11.0")
     implementation(group="com.squareup.okhttp3", name="okhttp", version="4.11.0")
+    implementation(group="com.squareup.retrofit2", name="converter-jackson", version="2.11.0")
+    implementation(group="com.squareup.retrofit2", name="retrofit", version="2.11.0")
 
     // slf4j
     implementation(group="org.slf4j", name="slf4j-api", version="2.0.16")
@@ -24,7 +25,6 @@ dependencies {
 
     // testing
     testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="4.12.0")
-    testImplementation(group="io.fabric8", name="mockwebserver", version="0.1.8")
     testImplementation(group="org.junit.jupiter", name="junit-jupiter", version="5.11.3")
     testImplementation(group="org.mockito", name="mockito-core", version="5.14.2")
 }

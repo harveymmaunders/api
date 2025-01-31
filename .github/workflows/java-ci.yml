@@ -12,7 +12,8 @@ jobs:
       matrix:
         java-version: ['11', '17', '21']
         working-directory:
-          - ./client-samples/java/rest
+          - ./client-samples/java/rest/rest
+          - ./client-samples/java/rest/rest-retrofit
           - ./client-samples/java/websockets
     defaults:
       run:
