@@ -18,6 +18,7 @@ Create a file, config.json, with the following properties:
  - `client_id`: Your Client Id for the Morgan Stanley API Platform. This is a GUID.
  - `scopes`: A list of scopes to request a token against, corresponding to the API you are calling. For help with finding the correct scope, please talk to your Morgan Stanley contact.
  - `thumbprint`: The thumbprint (also known as fingerprint) of your certificate, without colon separators. For example `AB48C0D31F95EBF8425AECF3E7E6FA92B34C8D47`
+    - You can get this by looking at the file via windows file explorer or running the following command `openssl x509 -in public_key.cer -noout -fingerprint -sha1 | sed 's/://g' | awk '{print tolower($0)}' | cut -d= -f2`
  - `private_key_file`: The path to your private key. This can be either an absolute or relative path. For example: `websockets/private_key.pem`
  - `tenant`: The tenant you are requesting an access token against. 
    - UAT: `api-uat.morganstanley.com`
@@ -29,7 +30,7 @@ Create a file, config.json, with the following properties:
  - `disable_ssl_verification`: Explicitly disable SSL verification. **Not recommended for security reasons.**
  - `retry_bad_handshake_status`: Whether or not to retry if the downstream API returns a handshake status other than 101 Switching Protocols. This may indicate an outage on the API and you may not always want to retry in this situation. Default value is `true`.
 
-You may use [`config-example.json`](./config-example.json) as a starting point.
+You may use [`config-example.json`](./config-example.json) as a starting pointY, or run `python setup-config.py` to generate it with a cli.
 
 > NOTE: You may recieve a Thumbprint in the formal 12:AB:FC:12, please remove the ":" so the thumbrpint would be 12ABFC12
 
