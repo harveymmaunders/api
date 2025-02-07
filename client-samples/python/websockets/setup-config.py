@@ -4,10 +4,12 @@ import sys
 import tty
 import termios
 
+
 def move_cursor(pos):
     """Move the cursor to a specific position."""
     sys.stdout.write(f"\r\033[{pos+1}G")
     sys.stdout.flush()
+
 
 def get_char():
     """Capture a single character from user input without requiring Enter."""
@@ -19,13 +21,15 @@ def get_char():
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
+
 def get_user_input(fixed_part, template):
     """Allow user to type over 'x' characters and submit only when Enter is pressed."""
     input_list = list(fixed_part + template)
     start_idx = len(fixed_part)
     idx = start_idx
 
-    sys.stdout.write(f"\r{''.join(input_list)}"); move_cursor(idx)
+    sys.stdout.write(f"\r{''.join(input_list)}")
+    move_cursor(idx)
 
     while True:
         char = get_char()
@@ -33,20 +37,25 @@ def get_user_input(fixed_part, template):
         if char in "\r\n":  # Enter to submit
             break
         elif char == "\x7f" and idx > start_idx:  # Backspace
-            while idx > start_idx and template[idx - start_idx] != 'x': 
+            while idx > start_idx and template[idx - start_idx] != "x":
                 idx -= 1
             if idx > start_idx:
-                input_list[idx] = 'x'
+                input_list[idx] = "x"
                 idx -= 1
-        elif char.isalnum() and idx < len(input_list) and template[idx - start_idx] == "x":  # Typing
+        elif (
+            char.isalnum()
+            and idx < len(input_list)
+            and template[idx - start_idx] == "x"
+        ):  # Typing
             input_list[idx] = char
             idx += 1
             while idx < len(input_list) and template[idx - start_idx] != "x":
                 idx += 1
 
-        sys.stdout.write(f"\r{''.join(input_list)}"); move_cursor(idx)
+        sys.stdout.write(f"\r{''.join(input_list)}")
+        move_cursor(idx)
 
-    return ''.join(input_list)
+    return "".join(input_list)
 
 
 def get_yes_no(question: str) -> bool:
@@ -61,6 +70,7 @@ def get_yes_no(question: str) -> bool:
 
     return option == "1"
 
+
 def get_client_id() -> str:
     """
     Prompt the user for the client ID.
@@ -70,6 +80,7 @@ def get_client_id() -> str:
 
     return get_user_input("Client ID: ", "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
 
+
 def get_api_scope() -> str:
     """
     Prompt the user for the API scope.
@@ -78,6 +89,7 @@ def get_api_scope() -> str:
     print("e.g. https://api-uat.morganstanley.com/hello-world/.default")
 
     return input("App Scope: ")
+
 
 def get_thumbprint() -> str:
     """
@@ -89,16 +101,20 @@ def get_thumbprint() -> str:
 
     return get_user_input("Thumbprint: ", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
+
 def get_private_key_file() -> str:
     """
     Prompt the user for the private key file path.
     """
     private_key_file = ""
     while not private_key_file.endswith(".pem"):
-        private_key_file = input("\n\nPlease enter your private key path (must end with .pem): ").strip()
+        private_key_file = input(
+            "\n\nPlease enter your private key path (must end with .pem): "
+        ).strip()
         if not private_key_file.endswith(".pem"):
             print("Error: The file path must end with .pem")
     return private_key_file
+
 
 def get_proxies() -> Dict[str, str]:
     """
@@ -107,9 +123,7 @@ def get_proxies() -> Dict[str, str]:
     if not get_yes_no("\nWould you like to add a proxy config? "):
         return {}
 
-    proxy_config =  {
-        "proxy_host": input("Please enter the proxy host: ").strip()
-    }
+    proxy_config = {"proxy_host": input("Please enter the proxy host: ").strip()}
 
     while True:
         try:
@@ -144,7 +158,7 @@ def main():
         "private_key_file": get_private_key_file(),
         "tenant": "api.morganstanley.com",
         "url": input("\nPlease enter your API URL: ").strip(),
-        "retry_bad_handshake_status": True
+        "retry_bad_handshake_status": True,
     }
 
     config.update(get_proxies())
