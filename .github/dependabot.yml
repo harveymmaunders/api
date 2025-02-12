@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
-    directory: "/client-samples/java/rest/rest"
+    directory: "/client-samples/java/rest/rest-okhttp"
     commit-message:
       prefix: "gradle"
     schedule:
