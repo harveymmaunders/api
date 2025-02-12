@@ -1,4 +1,2 @@
-black==24.3.0
-msal==1.25.0
-pytest==8.3.4
+msal==1.31.1
 websocket-client==1.6.4
