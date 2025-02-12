@@ -13,6 +13,7 @@ jobs:
         matrix:
           language: [java, python]
           type: [rest, websockets]
+          sub-type: [rest-okhttp, rest-retrofit]
     steps:
         # Step 1: Checkout the repository
         - name: Checkout repository
@@ -22,8 +23,13 @@ jobs:
         - name: Create ZIP archive
           run: |
             mkdir -p artifacts
-            cd client-samples/${{ matrix.language }}/${{ matrix.type }}
-            zip -r ../../../artifacts/${{ matrix.language }}-${{ matrix.type }}.zip .
+            if [ ${{ matrix.language }} == "java" ]; then
+              cd client-samples/${{ matrix.language }}/${{ matrix.type }}/${{ matrix.sub-type }}
+              zip -r ../../../../artifacts/${{ matrix.language }}-${{ matrix.sub-type }}.zip .
+            else
+              cd client-samples/${{ matrix.language }}/${{ matrix.type }}
+              zip -r ../../../artifacts/${{ matrix.language }}-${{ matrix.type }}.zip .
+            fi
   
         # Step 3: Upload binaries to release
         - name: Upload binaries to release
