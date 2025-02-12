@@ -30,7 +30,7 @@ Now that we have the file private key in a usable format we can use the Java Cli
 ## Configuring the Java Client
 
 ### Properties
-Make these changes to the `META-INF/microprofile-config.properties` resource file
+Make these changes to the `META-INF/microprofile-config.properties` resource file. Alternatively, you can use the [`CreateConfig`](./src/main/java/com/ms/infra/example/application/CreateConfig.java) script to help generate it for you.
 
 | Property Name                     | Description                                                                             | Required |
 |-----------------------------------|-----------------------------------------------------------------------------------------|----------|
