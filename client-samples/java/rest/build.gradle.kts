@@ -6,38 +6,29 @@ plugins {
 group = "example.application"
 version = "1.0-SNAPSHOT"
 
-var microsoftAzureMsal4jVersion = "1.17.3";
-var squareupOkhttp3Version = "4.11.0";
-var squareupRetrofit2Version = "2.11.0";
-var slf4jVersion = "2.0.16";
-var eclipseMicroprofileVersion = "6.0";
-var smallRyeConfigVersion = "3.9.1";
-var squareupOkhttp3MockwebserverVersion = "4.12.0";
-var junitJupiterVersion = "5.11.3";
-var mockitoCoreVersion = "5.14.2";
-
 dependencies {
-    implementation(group="com.microsoft.azure", name="msal4j", version=microsoftAzureMsal4jVersion)
+    implementation(group="com.microsoft.azure", name="msal4j", version="1.17.3")
 
-    // okhttp/retrofit
-    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version=squareupOkhttp3Version)
-    implementation(group="com.squareup.okhttp3", name="okhttp", version=squareupOkhttp3Version)
-    implementation(group="com.squareup.retrofit2", name="converter-jackson", version=squareupRetrofit2Version)
-    implementation(group="com.squareup.retrofit2", name="retrofit", version=squareupRetrofit2Version)
+    // okhttp
+    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.11.0")
+    implementation(group="com.squareup.okhttp3", name="okhttp", version="4.11.0")
+
+    // retrofit
+    implementation(group="com.squareup.retrofit2", name="converter-jackson", version="2.11.0")
+    implementation(group="com.squareup.retrofit2", name="retrofit", version="2.11.0")
 
     // slf4j
-    implementation(group="org.slf4j", name="slf4j-api", version=slf4jVersion)
-    implementation(group="org.slf4j", name="slf4j-simple", version=slf4jVersion)
+    implementation(group="org.slf4j", name="slf4j-api", version="2.0.16")
+    implementation(group="org.slf4j", name="slf4j-simple", version="2.0.16")
 
     // microprofile
-    implementation(group="org.eclipse.microprofile", name="microprofile", version=eclipseMicroprofileVersion)
-    implementation(group="io.smallrye.config", name="smallrye-config", version=smallRyeConfigVersion)
+    implementation(group="org.eclipse.microprofile", name="microprofile", version="6.0")
+    implementation(group="io.smallrye.config", name="smallrye-config", version="3.9.1")
 
     // testing
-    testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version=squareupOkhttp3MockwebserverVersion)
-    testImplementation(group="org.junit.jupiter", name="junit-jupiter", version=junitJupiterVersion)
-    testImplementation(group="org.mockito", name="mockito-core", version=mockitoCoreVersion)
-
+    testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="4.12.0")
+    testImplementation(group="org.junit.jupiter", name="junit-jupiter", version="5.11.3")
+    testImplementation(group="org.mockito", name="mockito-core", version="5.14.2")
 }
 
 repositories {
