@@ -10,8 +10,8 @@ dependencies {
     implementation(group="com.microsoft.azure", name="msal4j", version="1.17.3")
 
     // okhttp
-    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.11.0")
-    implementation(group="com.squareup.okhttp3", name="okhttp", version="4.11.0")
+    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.12.0")
+    implementation(group="com.squareup.okhttp3", name="okhttp", version="4.12.0")
 
     // retrofit
     implementation(group="com.squareup.retrofit2", name="converter-jackson", version="2.11.0")
