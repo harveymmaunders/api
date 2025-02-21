@@ -9,10 +9,27 @@ Using retrofit requires more code changes, so it is recommended to initially cal
 
 To configure this application for a different API, the following changes need to be made (there are more details on retrofit below):
 
-| Method         | Function in ExampleApplication  | What needs to be changed?                                                                                                                                                                                                                     |
-|----------------|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OkHttp Request | `callHelloWorldApi`             | The `apiEndpoint` variable in Example Application.                                                                                                                                                                                            |
-| Retrofit       | `callHelloWorldApiWithRetrofit` | Create a response type in the [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/) directory. </br> Create a service in the [`services`](./src/main/java/com/ms/infra/example/application/services/) directory. |
+| Method         | Class                        | What needs to be changed?                                                                                                                                                                                                                     |
+|----------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OkHttp Request | `ExampleApplication`         | The `apiEndpoint` variable in Example Application.                                                                                                                                                                                            |
+| Retrofit       | `RetrofitExampleApplication` | Create a response type in the [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/) directory. </br> Create a service in the [`services`](./src/main/java/com/ms/infra/example/application/services/) directory. |
+
+**Once you have chosen a final template, you can remove the following:**
+
+_If you are using the OkHttp template_
+- Files
+    - [`RetrofitExampleApplication.java`](./src/main/java/com/ms/infra/example/application/RetrofitExampleApplication.java)
+    - [`MsRetrofitWrapper.java`](./src/main/java/com/ms/infra/example/application/morganStanleyServices/MsRetrofitWrapper.java)
+- Test files
+    - [`TestHelloWorldRestServiceShould.java`](src/test/java/com/ms/infra/example/application/TestHelloWorldRestServiceShould.java)
+- Folders
+    - [`responseTypes`](./src/main/java/com/ms/infra/example/application/responseTypes/)
+    - [`services`](./src/main/java/com/ms/infra/example/application/services/)
+- Libraries (from [build.gradle.kts](./build.gradle.kts))
+    - Both libraries listed under `// retrofit`
+
+_If you are using the Retrofit template_
+- [`ExampleApplication.java`](./src/main/java/com/ms/infra/example/application/ExampleApplication.java)
 
 
 ## Create DER Encoded File
