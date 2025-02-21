@@ -7,7 +7,7 @@ group = "example.application"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(group="com.microsoft.azure", name="msal4j", version="1.17.3")
+    implementation(group="com.microsoft.azure", name="msal4j", version="1.19.0")
 
     // okhttp
     implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.11.0")
