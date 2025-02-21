@@ -22,7 +22,7 @@ dependencies {
     implementation(group="org.slf4j", name="slf4j-simple", version="2.0.16")
 
     // microprofile
-    implementation(group="org.eclipse.microprofile", name="microprofile", version="6.0")
+    implementation(group="org.eclipse.microprofile", name="microprofile", version="7.0")
     implementation(group="io.smallrye.config", name="smallrye-config", version="3.9.1")
 
     // testing
