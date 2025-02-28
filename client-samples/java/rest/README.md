@@ -2,7 +2,7 @@
 This project is a starting template for integrating with REST APIs on the API Platform.
 
 ## Using this template
-The first step is to create the DER encoded file and configure the properties file, which is described below this section.
+The first step is to create the DER encoded file and configure the properties file, as described below.
 
 This template provides two methods for making API calls: an OkHttp request and a Retrofit2 request. The okHttp method is shown in a singular function with sequential instructions, whereas the retrofit code has been wrapped in the `MsRetrofitWrapper` class.
 Using Retrofit2 requires more code changes, so it is recommended to check your authorization is working and initially call the API with the OkHttp request.
@@ -31,6 +31,11 @@ _If you are using the OkHttp template_
 _If you are using the Retrofit template_
 - [`ExampleApplication.java`](./src/main/java/com/ms/infra/example/application/ExampleApplication.java)
 
+## Java Versions
+This template works with the following Java LTS versions:
+- 11
+- 17
+- 21
 
 ## Create DER Encoded File
 For this template, the RSA Private key that was generated, `private_key.pem`, is not in a format that Java will understand and needs to be converted to a binary encoding.
@@ -42,7 +47,7 @@ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_k
 ```
 The `der` output format is just an encoding format, to find out more check <https://en.wikipedia.org/wiki/X.690#DER_encoding>
 
-Now that we have the file private key in a usable format, we can use the Java Client to test the connection to Morgan Stanley's API offering.
+Now that we have the private key file in a usable format, we can use the Java Client to test the connection to Morgan Stanley's API offering.
 
 ## Configuring the Java Client
 
@@ -73,6 +78,12 @@ Below are the example services we have configured (using the hello world endpoin
 The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint.
 
 ## Running the Java Client application
+This template is designed and tested on the following Java LTS versions:
+- 11
+- 17
+- 21
+
+
 It is important to ensure that the Java SDK is installed and the `JAVA_HOME` environment variable has been set.
 This can be checked by performing the following:
 
