@@ -4,7 +4,7 @@ This project is a starting template for integrating with REST APIs on the API Pl
 ## Using this template
 The first step is to create the DER encoded file and configure the properties file, as described below.
 
-This template provides two methods for making API calls: an OkHttp request and a Retrofit2 request. The okHttp method is shown in a singular function with sequential instructions, whereas the retrofit code has been wrapped in the `MsRetrofitWrapper` class.
+This template provides two methods for making API calls: an OkHttp request and a Retrofit2 request. The OkHttp method is shown in a singular function with sequential instructions, whereas the Retrofit code has been wrapped in the `MsRetrofitWrapper` class.
 Using Retrofit2 requires more code changes, so it is recommended to check your authentication is working and initially call the API with the OkHttp request.
 
 To configure this application for a different API, the following changes need to be made (there are further details on Retrofit2 below):
