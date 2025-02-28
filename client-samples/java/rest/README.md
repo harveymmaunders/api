@@ -2,12 +2,12 @@
 This project is a starting template for integrating with REST APIs on the API Platform.
 
 ## Using this template
-The first step is to create the DER encoded file and configure the properties file, as described below.
+The first step is to create the DER encoded file and configure the properties file, which is described after this section.
 
-This template provides two methods for making API calls: using a simple OkHttp request or a Retrofit request. The okHttp method is shown in a singular function with sequential instructions, whereas the retrofit code has been wrapped in the `MsRetrofitWrapper` class.
-Using retrofit requires more code changes, so it is recommended to initially call the API with the OkHttp request.
+This template provides two methods for making API calls: using a simple OkHttp request and a Retrofit request. The okHttp method is shown in a singular function with sequential instructions, whereas the retrofit code has been wrapped in the `MsRetrofitWrapper` class.
+Using Retrofit2 requires more code changes, so it is recommended to check your authorization is working and call the API with the OkHttp request.
 
-To configure this application for a different API, the following changes need to be made (there are more details on retrofit below):
+To configure this application for a different API, the following changes need to be made (there are further details on Retrofit2 below):
 
 | Method         | Class                        | What needs to be changed?                                                                                                                                                                                                                     |
 |----------------|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -33,16 +33,16 @@ _If you are using the Retrofit template_
 
 
 ## Create DER Encoded File
-For this example the RSA Private key that was generated, `private_key.pem`, is not in a format that Java will understand and needs to be converted to a binary encoding.
+For this template, the RSA Private key that was generated, `private_key.pem`, is not in a format that Java will understand and needs to be converted to a binary encoding.
 The [PKCS8](https://en.wikipedia.org/wiki/PKCS_8) format is a standardized way to store a private key information.
 To convert the `private_key.pem` to PKCS8 use the following command
 
 ```shell
 openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_key.der -nocrypt
 ```
-The `der` output format is a just an encoding format, to find out more check <https://en.wikipedia.org/wiki/X.690#DER_encoding>
+The `der` output format is just an encoding format, to find out more check <https://en.wikipedia.org/wiki/X.690#DER_encoding>
 
-Now that we have the file private key in a usable format we can use the Java Client to test the connection to Morgan Stanley's API offering.
+Now that we have the file private key in a usable format, we can use the Java Client to test the connection to Morgan Stanley's API offering.
 
 ## Configuring the Java Client
 
@@ -61,7 +61,7 @@ Make these changes to the `META-INF/microprofile-config.properties` resource fil
 | `proxy-port`                      | Optional proxy port                                                                     | False    |
 
 ## Retrofit
-This example app uses plain Java, with no larger frameworks such as Spring Boot. It uses the retrofit library, which configures API calls as an interface. Please see the [HelloWorldRestService interface](./src/main/java/com/ms/infra/example/application/servies/HelloWorldRestService.java) for an example. You can find the Retrofit docs [here](https://square.github.io/retrofit/).
+This template uses plain Java, with no larger frameworks such as Spring Boot. It uses the retrofit library, which configures API calls as an interface. Please see the [HelloWorldRestService interface](./src/main/java/com/ms/infra/example/application/servies/HelloWorldRestService.java) for an example. You can find the Retrofit docs [here](https://square.github.io/retrofit/).
 
 Below are the example services we have configured (using the hello world endpoint):
 
