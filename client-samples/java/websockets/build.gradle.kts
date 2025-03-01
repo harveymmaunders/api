@@ -11,8 +11,8 @@ dependencies {
     implementation(group="com.microsoft.azure", name="msal4j", version="1.17.3")
 
     // okhttp/retrofit
-    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.11.0")
-    implementation(group="com.squareup.okhttp3", name="okhttp", version="4.11.0")
+    implementation(group="com.squareup.okhttp3", name="logging-interceptor", version="4.12.0")
+    implementation(group="com.squareup.okhttp3", name="okhttp", version="4.12.0")
 
     // slf4j
     implementation(group="org.slf4j", name="slf4j-api", version="2.0.16")
