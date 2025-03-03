@@ -15,7 +15,7 @@ dependencies {
     implementation(group="com.squareup.okhttp3", name="okhttp", version="4.11.0")
 
     // slf4j
-    implementation(group="org.slf4j", name="slf4j-api", version="2.0.16")
+    implementation(group="org.slf4j", name="slf4j-api", version="2.0.17")
     implementation(group="org.slf4j", name="slf4j-simple", version="2.0.16")
 
     // microprofile
