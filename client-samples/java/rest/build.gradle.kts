@@ -19,7 +19,7 @@ dependencies {
 
     // slf4j
     implementation(group="org.slf4j", name="slf4j-api", version="2.0.17")
-    implementation(group="org.slf4j", name="slf4j-simple", version="2.0.16")
+    implementation(group="org.slf4j", name="slf4j-simple", version="2.0.17")
 
     // microprofile
     implementation(group="org.eclipse.microprofile", name="microprofile", version="7.0")
@@ -49,3 +49,4 @@ tasks {
         distributionType = Wrapper.DistributionType.ALL
     }
 }
+
