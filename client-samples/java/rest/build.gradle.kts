@@ -27,10 +27,10 @@ dependencies {
 
     // testing
     testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="4.12.0")
-    testImplementation(platform("org.junit:junit-bom:5.12.0"))
+    testImplementation(platform("org.junit:junit-bom:5.12.1"))
     testImplementation(group="org.junit.jupiter", name="junit-jupiter")
     testRuntimeOnly(group="org.junit.platform", name="junit-platform-launcher")
-    testImplementation(group="org.mockito", name="mockito-core", version="5.14.2")
+    testImplementation(group="org.mockito", name="mockito-core", version="5.16.1")
 }
 
 repositories {
