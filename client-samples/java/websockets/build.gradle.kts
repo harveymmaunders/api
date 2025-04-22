@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "8.3.6"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "example.application"
@@ -20,11 +20,11 @@ dependencies {
 
     // microprofile
     implementation(group="org.eclipse.microprofile", name="microprofile", version="7.0")
-    implementation(group="io.smallrye.config", name="smallrye-config", version="3.9.1")
+    implementation(group="io.smallrye.config", name="smallrye-config", version="3.10.2")
 
     // testing
     testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="4.12.0")
-    testImplementation(group="io.fabric8", name="mockwebserver", version="0.1.8")
+    testImplementation(group="io.fabric8", name="mockwebserver", version="6.12.1")
     testImplementation(platform("org.junit:junit-bom:5.12.0"))
     testImplementation(group="org.junit.jupiter", name="junit-jupiter")
     testRuntimeOnly(group="org.junit.platform", name="junit-platform-launcher")
