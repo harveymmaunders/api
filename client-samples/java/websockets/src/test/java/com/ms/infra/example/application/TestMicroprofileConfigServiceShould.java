@@ -16,7 +16,7 @@ public class TestMicroprofileConfigServiceShould {
     private final String TEST_MS_OAUTH2_TOKEN_URI = "ms-test-uri";
     private final String TEST_CLIENT_APP_ID = "test-client-app-id";
     private final String TEST_CLIENT_APP_SCOPE = "test-client-app-scope";
-    private final String TEST_MS_URL = "wss://api-uat.morganstanley.com/";
+    private final String TEST_MS_URL = "wss://test-url.com";
     private final String TEST_PROXY_HOST = "test-proxy-host";
     private final String TEST_PROXY_PORT = "8080";
 
