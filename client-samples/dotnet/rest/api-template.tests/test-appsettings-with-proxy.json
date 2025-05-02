@@ -1,0 +1,16 @@
+{
+    "ClientCredentials": {
+      "clientId": "client-id",
+      "privateKeyFile": "C:/test/path/keys/private_key.pem",
+      "publicKeyFile": "C:/test/path/keys/public_key.cer",
+      "scopes": [
+        "https://api.example.com/hello-world/.default"
+      ],
+      "tenant": "api.example.com",
+      "url": "https://api.example.com/"
+    },
+    "ProxySettings": {
+      "proxyHost": "proxy.example.com",
+      "proxyPort": "8080"
+    }
+}

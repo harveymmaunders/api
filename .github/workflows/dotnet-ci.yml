@@ -1,0 +1,30 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/dotnet/**'
+  pull_request:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/dotnet/**'
+jobs:
+    dotnet-checkout-and-test:
+        runs-on: windows-latest
+        defaults:
+            run:
+                working-directory: ./client-samples/dotnet/rest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: 9.0.x
+        - name: Restore dependencies
+          run: dotnet restore api-template && dotnet restore api-template.tests
+        - name: Build
+          run: dotnet build api-template --no-restore --configuration Release
+        - name: Test
+          run: dotnet test api-template.tests
