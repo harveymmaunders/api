@@ -1,5 +1,5 @@
 public class ProxySettings
 {
-    public required string proxyHost { get; set; }
-    public required int proxyPort { get; set; }
+    public required string ProxyHost { get; set; }
+    public required int ProxyPort { get; set; }
 }

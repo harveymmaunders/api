@@ -1,4 +1,4 @@
-﻿namespace api_template.tests.services;
+﻿namespace ApiTemplate.Tests.Services;
 
 public class TestConfigService
 {
@@ -11,26 +11,26 @@ public class TestConfigService
     [Fact]
     public void TestLoadSettings()
     {
-        ConfigService configService = new ConfigService("test-appsettings.json");
-        var _settings = configService.loadSettings();
+        var configService = new ConfigService("test-appsettings.json");
+        var settings = configService.LoadSettings();
 
-        Assert.IsType<ClientCredentialSettings>(_settings);
-        Assert.NotNull(_settings);
+        Assert.IsType<ClientCredentialSettings>(settings);
+        Assert.NotNull(settings);
 
-        Assert.Equal("client-id", _settings.clientId);
-        Assert.Equal("C:/test/path/keys/private_key.pem", _settings.privateKeyFile);
-        Assert.Equal("C:/test/path/keys/public_key.cer", _settings.publicKeyFile);
-        Assert.Equal(new[] { "https://api.example.com/hello-world/.default" }, _settings.scopes);
-        Assert.Equal("api.example.com", _settings.tenant);
-        Assert.Equal("https://api.example.com/", _settings.url);
+        Assert.Equal("client-id", settings.ClientId);
+        Assert.Equal("C:/test/path/keys/private_key.pem", settings.PrivateKeyFile);
+        Assert.Equal("C:/test/path/keys/public_key.cer", settings.PublicKeyFile);
+        Assert.Equal(new[] { "https://api.example.com/hello-world/.default" }, settings.Scopes);
+        Assert.Equal("api.example.com", settings.Tenant);
+        Assert.Equal("https://api.example.com/", settings.Url);
 
-        Assert.Equal("", configService.loadProxySettings());
+        Assert.Equal("", configService.LoadProxySettings());
     }
 
     [Fact]
     public void TestSetsCorrectProxy()
     {
-        ConfigService configService = new ConfigService("test-appsettings-with-proxy.json");
-        Assert.Equal("https://proxy.example.com:8080", configService.loadProxySettings());
+        var configService = new ConfigService("test-appsettings-with-proxy.json");
+        Assert.Equal("http://proxy.example.com:8080", configService.LoadProxySettings());
     }
 }

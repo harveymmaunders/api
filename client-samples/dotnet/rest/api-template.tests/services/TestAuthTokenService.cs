@@ -5,49 +5,49 @@ namespace api_template.tests.services;
 
 public class TestAuthTokenService
 {
-    private readonly ClientCredentialSettings clientCredentialSettings;
-    private AuthTokenService authTokenServiceMock;
+    private readonly ClientCredentialSettings _clientCredentialSettings;
+    private readonly AuthTokenService _authTokenServiceMock;
+
     public TestAuthTokenService()
     {
-        clientCredentialSettings = new ClientCredentialSettings
+        _clientCredentialSettings = new ClientCredentialSettings
         {
-            clientId = "your-client-id",
-            privateKeyFile = "path/to/privateKey.pem",
-            publicKeyFile = "path/to/publicKey.pem",
-            scopes = new List<string> { "scope1", "scope2" },
-            tenant = "your-tenant-id",
-            url = "https://your-auth-url.com"
+            ClientId = "your-client-id",
+            PrivateKeyFile = "path/to/privateKey.pem",
+            PublicKeyFile = "path/to/publicKey.pem",
+            Scopes = new() { "scope1", "scope2" },
+            Tenant = "your-tenant-id",
+            Url = "https://your-auth-url.com"
         };
-        authTokenServiceMock = Substitute.For<AuthTokenService>(clientCredentialSettings);
+        _authTokenServiceMock = Substitute.For<AuthTokenService>(_clientCredentialSettings);
     }
 
     [Fact]
     public void TestInitializeConfiguresApp()
     {
-        authTokenServiceMock.When(mock => mock.CreateConfidentialClient(
+        _authTokenServiceMock.When(mock => mock.CreateConfidentialClient(
             Arg.Any<string>(),
             Arg.Any<string>(),
             Arg.Any<X509Certificate2>()
         )).DoNotCallBase();
 
-        authTokenServiceMock.When(mock => mock.GetCertificate(
+        _authTokenServiceMock.When(mock => mock.GetCertificate(
             Arg.Any<string>(),
             Arg.Any<string>()
         )).DoNotCallBase();
 
-        authTokenServiceMock.initalize();
+        _authTokenServiceMock.Initialize();
 
         // Assert
-        authTokenServiceMock.Received(1).GetCertificate(
-            clientCredentialSettings.publicKeyFile,
-            clientCredentialSettings.privateKeyFile
+        _authTokenServiceMock.Received(1).GetCertificate(
+            _clientCredentialSettings.PublicKeyFile,
+            _clientCredentialSettings.PrivateKeyFile
         );
 
-        authTokenServiceMock.Received(1).CreateConfidentialClient(
-            clientCredentialSettings.clientId,
-            $"https://login.microsoftonline.com/{clientCredentialSettings.tenant}",
+        _authTokenServiceMock.Received(1).CreateConfidentialClient(
+            _clientCredentialSettings.ClientId,
+            $"https://login.microsoftonline.com/{_clientCredentialSettings.Tenant}",
             Arg.Any<X509Certificate2>()
         );
     }
 }
-    

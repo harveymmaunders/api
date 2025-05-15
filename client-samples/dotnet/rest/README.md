@@ -13,12 +13,12 @@ Set the following values in the ClientCredentials section in [appsettings.json](
 
 | Property Name        | Description                                                                             |
 |----------------------|-----------------------------------------------------------------------------------------|
-| `clientId`           | The client id that will be sent to you from your Morgan Stanley contact                 |
-| `privateKeyFile`     | The path to the private_key.pem that has been created                                   |
-| `publicKeyFile`      | The path to the public_key.cer that was created and sent to your Morgan Stanley contact |
-| `scopes`             | The scope/s that will be sent to you from your Morgan Stanley contact                   |
-| `tenant`             | The tenant that will be sent to you from your Morgan Stanley contact                    |
-| `url`                | The URL of the Morgan Stanley API endpoint you are connecting to                        |
+| `ClientId`           | The client id that will be sent to you from your Morgan Stanley contact                 |
+| `PrivateKeyFile`     | The path to the private_key.pem that has been created                                   |
+| `PublicKeyFile`      | The path to the public_key.cer that was created and sent to your Morgan Stanley contact |
+| `Scopes`             | The scope/s that will be sent to you from your Morgan Stanley contact                   |
+| `Tenant`             | The tenant that will be sent to you from your Morgan Stanley contact                    |
+| `Url`                | The URL of the Morgan Stanley API endpoint you are connecting to                        |
 
 ### Proxies
 If you would like to route your API call through a Proxy, then add the `ProxySettings` section to [appsettings.json](./api-template/appsettings.json). For example:
@@ -26,12 +26,12 @@ If you would like to route your API call through a Proxy, then add the `ProxySet
 ```json
 {
   "ClientCredentials": {
-    "clientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "ClientId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     ...
   },
   "ProxySettings": {
-    "proxyHost": "proxy-host",
-    "proxyPort": "8080"
+    "ProxyHost": "proxy-host",
+    "ProxyPort": "8080"
   }
 }
 ```

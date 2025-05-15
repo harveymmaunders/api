@@ -1,15 +1,13 @@
 using WireMock.Server;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
-using System.Net.Http;
-using Xunit;
 
-namespace api_template.tests.services;
+namespace ApiTemplate.Tests.Services;
 
 public class TestApiService
 {
     [Fact]
-    async public Task TestGetResponse()
+    public async Task TestGetResponseAsync()
     {
         // Arrange: Start the mock server
         var server = WireMockServer.Start();
@@ -29,10 +27,10 @@ public class TestApiService
                 .WithBody("Mock Response")
         );
 
-        // Act: Call the ApiService.getResponse method
+        // Act: Call the ApiService.GetResponse method
         var token = "mock-token";
         var proxy = string.Empty; // No proxy for this test
-        var response = ApiService.getResponse(mockUrl, token, proxy);
+        var response = ApiService.GetResponse(mockUrl, token, proxy);
 
         // Assert: Verify the response
         Assert.NotNull(response);

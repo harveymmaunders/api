@@ -4,8 +4,8 @@ using System.Security.Cryptography.X509Certificates;
 
 public class AuthTokenService
 {
-    // Static property to hold the client credential settings
-    private readonly ClientCredentialSettings clientCredentialSettings;
+    // Private field to hold the client credential settings
+    private readonly ClientCredentialSettings _clientCredentialSettings;
 
     // Static property to hold the confidential client application instance
     public static IConfidentialClientApplication? App { get; private set; }
@@ -17,22 +17,22 @@ public class AuthTokenService
     public AuthTokenService(ClientCredentialSettings settings)
     {
         // Store the client credential settings
-        clientCredentialSettings = settings;
+        _clientCredentialSettings = settings;
     }
 
-    public void initalize()
+    public void Initialize()
     {
         // Load the certificate using the provided public and private key files
-        var cert = GetCertificate(clientCredentialSettings.publicKeyFile, clientCredentialSettings.privateKeyFile);
+        var cert = GetCertificate(_clientCredentialSettings.PublicKeyFile, _clientCredentialSettings.PrivateKeyFile);
 
         // Construct the authority URL using the tenant ID
-        var authority = GetAuthority(clientCredentialSettings.tenant);
+        var authority = GetAuthority(_clientCredentialSettings.Tenant);
 
         // Build the confidential client application with the client ID, authority, and certificate
-        App = CreateConfidentialClient(clientCredentialSettings.clientId, authority, cert);
+        App = CreateConfidentialClient(_clientCredentialSettings.ClientId, authority, cert);
 
         // Set the scopes for the token request
-        Scopes = clientCredentialSettings.scopes.ToArray();
+        Scopes = _clientCredentialSettings.Scopes.ToArray();
     }
 
     // Method to get the authority URL
@@ -64,7 +64,7 @@ public class AuthTokenService
     }
 
     // Asynchronous method to acquire an authentication token
-    async public virtual Task<string> GetAuthToken()
+    public async Task<string> GetAuthToken()
     {
         // Acquire the token for the client using the configured scopes
         var result = await App.AcquireTokenForClient(Scopes).ExecuteAsync();

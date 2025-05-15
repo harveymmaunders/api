@@ -3,20 +3,20 @@ using Microsoft.Extensions.Configuration;
 public class ConfigService
 {
     // Static property to hold the JSON configuration file name or path
-    public static string jsonFile { get; set; } = "appsettings.json";
+    public string JsonFile { get; set; } = "appsettings.json";
 
     // Constructor to initialize the JSON configuration file path
     public ConfigService(string jsonFilePath = "appsettings.json")
     {
-        jsonFile = jsonFilePath;
+        JsonFile = jsonFilePath;
     }
 
     // Method to load client credential settings from the configuration file
-    public ClientCredentialSettings loadSettings()
+    public ClientCredentialSettings LoadSettings()
     {
         // Build the configuration object using the JSON file and environment variables
         IConfigurationRoot config = new ConfigurationBuilder()
-            .AddJsonFile(jsonFile)
+            .AddJsonFile(JsonFile)
             .AddEnvironmentVariables()
             .Build();
 
@@ -27,11 +27,11 @@ public class ConfigService
     }
 
     // Method to load proxy settings from the configuration file
-    public string loadProxySettings()
+    public string LoadProxySettings()
     {
         // Build the configuration object using the JSON file and environment variables
         IConfigurationRoot config = new ConfigurationBuilder()
-            .AddJsonFile(jsonFile)
+            .AddJsonFile(JsonFile)
             .AddEnvironmentVariables()
             .Build();
 
@@ -40,7 +40,7 @@ public class ConfigService
         if (proxySettings != null)
         {
             // Return the proxy URL if proxy settings are found
-            return $"https://{proxySettings.proxyHost}:{proxySettings.proxyPort}";
+            return $"http://{proxySettings.ProxyHost}:{proxySettings.ProxyPort}";
         }
         // Return an empty string if no proxy settings are found
         return "";

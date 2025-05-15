@@ -1,16 +1,16 @@
 {
-    "ClientCredentials": {
-      "clientId": "client-id",
-      "privateKeyFile": "C:/test/path/keys/private_key.pem",
-      "publicKeyFile": "C:/test/path/keys/public_key.cer",
-      "scopes": [
-        "https://api.example.com/hello-world/.default"
-      ],
-      "tenant": "api.example.com",
-      "url": "https://api.example.com/"
-    },
-    "ProxySettings": {
-      "proxyHost": "proxy.example.com",
-      "proxyPort": "8080"
-    }
+  "ClientCredentials": {
+    "ClientId": "client-id",
+    "PrivateKeyFile": "C:/test/path/keys/private_key.pem",
+    "PublicKeyFile": "C:/test/path/keys/public_key.cer",
+    "Scopes": [
+      "https://api.example.com/hello-world/.default"
+    ],
+    "Tenant": "api.example.com",
+    "Url": "https://api.example.com/"
+  },
+  "ProxySettings": {
+    "ProxyHost": "proxy.example.com",
+    "ProxyPort": "8080"
+  }
 }

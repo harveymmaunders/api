@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 public class ApiService
 {
     // Method to call an API with a given URL, token, and optional proxy
-    public static HttpResponseMessage getResponse(string url, string token, string proxy)
+    public static HttpResponseMessage GetResponse(string url, string token, string proxy)
     {
         Console.WriteLine($"Calling API at {url}.\n");
         var httpClientHandler = new HttpClientHandler();
@@ -27,10 +27,10 @@ public class ApiService
         return httpClient.GetAsync(url).Result;
     }
 
-    public static void callApi(string url, string token, string proxy)
+    public static void CallApi(string url, string token, string proxy)
     {
         // Get the response from the API
-        var response = getResponse(url, token, proxy);
+        var response = GetResponse(url, token, proxy);
         
         // Check if the response is successful
         if (response.IsSuccessStatusCode)
