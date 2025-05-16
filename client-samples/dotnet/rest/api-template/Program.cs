@@ -6,10 +6,9 @@ var settings = configService.LoadSettings();
 
 // Initialize the authentication token service with the loaded settings
 var authTokenService = new AuthTokenService(settings);
-authTokenService.Initialize();
 
 // Retrieve the authentication token synchronously
-var token = authTokenService.GetAuthToken().GetAwaiter().GetResult();
+var token = authTokenService.GetAuthToken();
 
 // Call the API using the settings, authentication token, and proxy settings
 ApiService.CallApi(

@@ -7,9 +7,6 @@ public class AuthTokenService
     // Private field to hold the client credential settings
     private readonly ClientCredentialSettings _clientCredentialSettings;
 
-    // Static property to hold the confidential client application instance
-    public static IConfidentialClientApplication? App { get; private set; }
-
     // Static property to hold the scopes for the token request
     public static string[]? Scopes { get; private set; }
 
@@ -18,20 +15,6 @@ public class AuthTokenService
     {
         // Store the client credential settings
         _clientCredentialSettings = settings;
-    }
-
-    public void Initialize()
-    {
-        // Load the certificate using the provided public and private key files
-        var cert = GetCertificate(_clientCredentialSettings.PublicKeyFile, _clientCredentialSettings.PrivateKeyFile);
-
-        // Construct the authority URL using the tenant ID
-        var authority = GetAuthority(_clientCredentialSettings.Tenant);
-
-        // Build the confidential client application with the client ID, authority, and certificate
-        App = CreateConfidentialClient(_clientCredentialSettings.ClientId, authority, cert);
-
-        // Set the scopes for the token request
         Scopes = _clientCredentialSettings.Scopes.ToArray();
     }
 
@@ -64,11 +47,24 @@ public class AuthTokenService
     }
 
     // Asynchronous method to acquire an authentication token
-    public async Task<string> GetAuthToken()
+    public virtual async Task<string> GetToken(IConfidentialClientApplication app)
     {
+        var authResult = await app.AcquireTokenForClient(Scopes).ExecuteAsync();
+        Console.WriteLine($"AuthResult: {authResult}");
+        return authResult.AccessToken;
+    }
+
+    // Asynchronous method to acquire an authentication token
+    public string GetAuthToken()
+    {
+        var token = string.Empty;
         // Acquire the token for the client using the configured scopes
-        var result = await App.AcquireTokenForClient(Scopes).ExecuteAsync();
+        using (X509Certificate2 certificate = GetCertificate(_clientCredentialSettings.PublicKeyFile, _clientCredentialSettings.PrivateKeyFile))
+        {
+            var app = CreateConfidentialClient(_clientCredentialSettings.ClientId, GetAuthority(_clientCredentialSettings.Tenant), certificate);
+            token = GetToken(app).Result;
+        }
         Console.WriteLine("Token acquired successfully.");
-        return result.AccessToken; // Return the access token
+        return token; // Return the access token
     }
 }
