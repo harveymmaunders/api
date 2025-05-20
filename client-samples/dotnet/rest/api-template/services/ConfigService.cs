@@ -43,6 +43,6 @@ public class ConfigService
             return $"http://{proxySettings.ProxyHost}:{proxySettings.ProxyPort}";
         }
         // Return an empty string if no proxy settings are found
-        return "";
+        return string.Empty;
     }
 }
