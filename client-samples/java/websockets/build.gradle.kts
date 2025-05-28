@@ -24,7 +24,7 @@ dependencies {
 
     // testing
     testImplementation(group="com.squareup.okhttp3", name="mockwebserver", version="4.12.0")
-    testImplementation(group="io.fabric8", name="mockwebserver", version="7.2.0")
+    testImplementation(group="io.fabric8", name="mockwebserver", version="7.3.1")
     testImplementation(platform("org.junit:junit-bom:5.12.2"))
     testImplementation(group="org.junit.jupiter", name="junit-jupiter")
     testRuntimeOnly(group="org.junit.platform", name="junit-platform-launcher")
