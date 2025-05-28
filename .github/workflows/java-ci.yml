@@ -3,8 +3,12 @@ name: Java CI
 on:
   push:
     branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/**'
   pull_request:
     branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/**'
 jobs:
   java-checkout-and-test:
     runs-on: ubuntu-latest
