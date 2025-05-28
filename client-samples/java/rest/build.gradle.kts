@@ -14,8 +14,8 @@ dependencies {
     implementation(group="com.squareup.okhttp3", name="okhttp", version="4.12.0")
 
     // retrofit
-    implementation(group="com.squareup.retrofit2", name="converter-jackson", version="2.11.0")
-    implementation(group="com.squareup.retrofit2", name="retrofit", version="2.11.0")
+    implementation(group="com.squareup.retrofit2", name="converter-jackson", version="3.0.0")
+    implementation(group="com.squareup.retrofit2", name="retrofit", version="3.0.0")
 
     // slf4j
     implementation(group="org.slf4j", name="slf4j-api", version="2.0.17")
