@@ -18,6 +18,7 @@ Create a file, config.json, with the following properties:
  - `client_id`: Your Client Id for the Morgan Stanley API Platform. This is a GUID.
  - `scopes`: A list of scopes to request a token against, corresponding to the API you are calling. For help with finding the correct scope, please talk to your Morgan Stanley contact.
  - `thumbprint`: The thumbprint (also known as fingerprint) of your certificate, without colon separators. For example `AB48C0D31F95EBF8425AECF3E7E6FA92B34C8D47`
+   - You can get this by looking at the file via windows file explorer or running the following command `openssl x509 -in public_key.cer -noout -fingerprint -sha1 | sed 's/://g' | awk '{print tolower($0)}' | cut -d= -f2`
  - `private_key_file`: The path to your private key. This can be either an absolute or relative path. For example: `certs/private_key.pem`
  - `tenant`: The tenant you are requesting an access token against. 
    - UAT: `api-uat.morganstanley.com`
@@ -28,7 +29,7 @@ Create a file, config.json, with the following properties:
  - `requests_ca_bundle`: The file to use as the CA bundle when verifying HTTPS certificates. If omitted, use the default bundle shipped with the `requests` library. Please see the [SSL validation section](#ssl-validation-issues-and-the-requests-ca-bundle) for more details.
  - `disable_ssl_verification`: Explicitly disable SSL verification. **Not recommended for security reasons.**
 
-You can use `config-example.json` as a starting point.
+You can use `config-example.json` as a starting point, or run `python setup-config.py` to generate it with a cli.
 
 > NOTE: You may recieve a Thumbprint in the format 12:AB:FC:12. Please remove the ":" characters, the thumbrpint should look like 12ABFC12
 

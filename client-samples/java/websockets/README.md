@@ -19,7 +19,7 @@ The `der` output format is just an encoding format, to find out more check <http
 Now that we have the private key file in a usable format we can use the Java Client to test the connection to Morgan Stanley's API offering.
 
 ### Properties
-Make these changes to the `META-INF/microprofile-config.properties` resource file
+Make these changes to the `META-INF/microprofile-config.properties` resource file. Alternatively, you can use the [`CreateConfig`](./src/main/java/com/ms/infra/example/application/CreateConfig.java) script to help generate it for you.
 
 | Property Name                     | Description                                                                             | Required |
 |-----------------------------------|-----------------------------------------------------------------------------------------|----------|
