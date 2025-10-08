@@ -37,10 +37,32 @@ updates:
       time: "08:00"
 
   - package-ecosystem: "nuget"
-    directory: "/client-samples/dotnet/rest"
+    directory: "/client-samples/dotnet/rest/api-template"
     commit-message:
       prefix: "nuget-rest"
     schedule:
       interval: "monthly"
       day: "monday"
       time: "08:00"
+
+  - package-ecosystem: "nuget"
+    directory: "/client-samples/dotnet/rest/api-template.tests"
+    commit-message:
+      prefix: "nuget-rest-tests"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    commit-message:
+      prefix: "github-actions"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "08:00"
+    groups:
+      actions:
+        patterns:
+          - "actions/*"
