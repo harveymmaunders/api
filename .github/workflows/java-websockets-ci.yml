@@ -1,0 +1,22 @@
+name: Java WebSockets Tests
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/websockets/**'
+      - '.github/workflows/java-websockets-ci.yml'
+      - '.github/workflows/java-base-ci.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/websockets/**'
+      - '.github/workflows/java-websockets-ci.yml'
+      - '.github/workflows/java-base-ci.yml'
+
+jobs:
+  # WebSockets tests
+  websockets-ci:
+    uses: ./.github/workflows/java-base-ci.yml
+    with:
+      working-directory: ./client-samples/java/websockets
