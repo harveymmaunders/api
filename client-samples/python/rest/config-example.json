@@ -5,8 +5,8 @@
   ],
   "thumbprint": "CERT THUMBPRINT",
   "private_key_file": "PATH TO PRIVATE KEY IN PEM FORMAT",
-  "tenant": "api.morganstanley.com",
+  "tenant": "TENANT",
   "proxy_host": "PROXY HOST HERE",
   "proxy_port": "PROXY PORT",
-  "url": "https://api.morganstanley.com/rest-example"
+  "url": "https://example-api.com"
 }

@@ -1,0 +1,22 @@
+name: Java REST Tests
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/rest/**'
+      - '.github/workflows/java-rest-ci.yml'
+      - '.github/workflows/java-base-ci.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths: 
+      - 'client-samples/java/rest/**'
+      - '.github/workflows/java-rest-ci.yml'
+      - '.github/workflows/java-base-ci.yml'
+
+jobs:
+  # REST tests
+  rest-ci:
+    uses: ./.github/workflows/java-base-ci.yml
+    with:
+      working-directory: ./client-samples/java/rest

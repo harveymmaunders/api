@@ -7,7 +7,7 @@ It uses the following libraries:
 It requires some simple security configuration to enable you to authenticate to the platform.
 
 ## Requirements
-- Python 3.9+
+- Python 3.10+
 - A client application on Morgan Stanley Azure AD tenant. Please talk to your contact at Morgan Stanley to set this up.
 - A self-signed public/private key pair. Please see the Morgan Stanley API Onboarding instructions for help generating these.
 - The thumbprint (also known as fingerprint) for your certificate. 
@@ -15,19 +15,24 @@ It requires some simple security configuration to enable you to authenticate to 
 
 ## Configuration
 Create a file, config.json, with the following properties:
- - `client_id`: Your Client Id for the Morgan Stanley API Platform. This is a GUID.
- - `scopes`: A list of scopes to request a token against, corresponding to the API you are calling. For help with finding the correct scope, please talk to your Morgan Stanley contact.
- - `thumbprint`: The thumbprint (also known as fingerprint) of your certificate, without colon separators. For example `AB48C0D31F95EBF8425AECF3E7E6FA92B34C8D47`
- - `private_key_file`: The path to your private key. This can be either an absolute or relative path. For example: `websockets/private_key.pem`
- - `tenant`: The tenant you are requesting an access token against. 
-   - UAT: `api-uat.morganstanley.com`
-   - PROD : `api.morganstanley.com`
- - `proxy_host`: If you are running this app inside a restricted network environment, you should specify the hostname of the proxy you are using. e.g. `internal-proxy.company.com`
- - `proxy_port`: Set this to the port number for your proxy, if applicable. Should be an integer.
- - `url`: The WebSocket URL to call. **NOTE** in a production app you probably won't source the URL like this, but this is just an example.
- - `requests_ca_bundle`: The file to use as the CA bundle when verifying HTTPS certificates. If omitted, use the default bundle shipped with the `requests` library. Please see the [SSL validation section](#ssl-validation-issues-and-the-requests-ca-bundle) for more details.
- - `disable_ssl_verification`: Explicitly disable SSL verification. **Not recommended for security reasons.**
- - `retry_bad_handshake_status`: Whether or not to retry if the downstream API returns a handshake status other than 101 Switching Protocols. This may indicate an outage on the API and you may not always want to retry in this situation. Default value is `true`.
+| Key                  | Description                                                                             |
+|----------------------|-----------------------------------------------------------------------------------------|
+| `client_id`          | The client id that will be sent to you from your Morgan Stanley contact                 |
+| `scopes`             | The scope/s that will be sent to you from your Morgan Stanley contact                   |
+| `thumbprint`         | The certificate thumbprint                                                              |
+| `private_key_file`   | The path to the private_key.pem that has been created                                   |
+| `tenant`             | The tenant that will be sent to you from your Morgan Stanley contact                    |
+| `url`                | The URL of the Morgan Stanley API endpoint you are connecting to                        |
+
+### Optional `config.json` Properties
+
+| Key                     | Description                                                                                          | Example Value                        |
+|-------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------|
+| `proxy_host`            | Hostname of your proxy server (if inside a restricted network)                                       | `"internal-proxy.company.com"`       |
+| `proxy_port`            | Port number for your proxy (integer)                                                                 | `8080`                               |
+| `requests_ca_bundle`    | Path to CA bundle file for HTTPS certificate verification. If omitted, uses default from `requests`. | `"/path/to/ca-bundle.pem"`           |
+| `disable_ssl_verification` | Set to `true` to disable SSL verification (**not recommended for security reasons**).             | `false` or `true`                    |
+| `retry_bad_handshake_status` | Whether or not to retry if the downstream API returns a handshake status other than 101 Switching Protocols. This may indicate an outage on the API and you may not always want to retry in this situation. Default value is `true`. | `true` or `false` |
 
 You may use [`config-example.json`](./config-example.json) as a starting point.
 
