@@ -1,0 +1,22 @@
+name: Python WebSockets Tests
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "client-samples/python/websockets/**"
+      - ".github/workflows/python-websockets-ci.yml"
+      - ".github/workflows/python-base-ci.yml"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "client-samples/python/websockets/**"
+      - ".github/workflows/python-websockets-ci.yml"
+      - ".github/workflows/python-base-ci.yml"
+
+jobs:
+  # WebSockets tests
+  websockets-ci:
+    uses: ./.github/workflows/python-base-ci.yml
+    with:
+      working-directory: ./client-samples/python/websockets

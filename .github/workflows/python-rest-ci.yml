@@ -1,0 +1,22 @@
+name: Python REST Tests
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "client-samples/python/rest/**"
+      - ".github/workflows/python-rest-ci.yml"
+      - ".github/workflows/python-base-ci.yml"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "client-samples/python/rest/**"
+      - ".github/workflows/python-rest-ci.yml"
+      - ".github/workflows/python-base-ci.yml"
+
+jobs:
+  # REST tests
+  rest-ci:
+    uses: ./.github/workflows/python-base-ci.yml
+    with:
+      working-directory: ./client-samples/python/rest
