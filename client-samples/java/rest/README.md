@@ -31,12 +31,6 @@ _If you are using the OkHttp template_
 _If you are using the Retrofit template_
 - [`ExampleApplication.java`](./src/main/java/com/ms/infra/example/application/ExampleApplication.java)
 
-## Java Versions
-This template works with the following Java LTS versions:
-- 11
-- 17
-- 21
-
 ## Create DER Encoded File
 For this template, the RSA Private key that was generated, `private_key.pem`, is not in a format that Java will understand and needs to be converted to a binary encoding.
 The [PKCS8](https://en.wikipedia.org/wiki/PKCS_8) format is a standardized way to store a private key information.
@@ -56,14 +50,14 @@ Make these changes to the `META-INF/microprofile-config.properties` resource fil
 
 | Property Name                     | Description                                                                             | Required |
 |-----------------------------------|-----------------------------------------------------------------------------------------|----------|
-| `morgan-stanley-oauth2-token-uri` | Morgan Stanley OAuth2 token endpoint URL                                                | True     |
-| `client-app-id`                   | The client id that will be sent to you from your Morgan Stanley contact                 | True     |
-| `client-app-scope`                | The scope/s that will be sent to from your Morgan Stanley contact                       | True     |
-| `private-key-file`                | The path to the private_key.der that has been created                                   | True     |
-| `public-certificate-file`         | The path to the public_key.cer that was created and sent to your Morgan Stanley contact | True     |
-| `ms-url-api-domain`               | Morgan Stanley API Url Domain (Currently set to uat)                                    | True     |
-| `proxy-host`                      | Optional proxy host                                                                     | False    |
-| `proxy-port`                      | Optional proxy port                                                                     | False    |
+| `morgan-stanley-oauth2-token-uri` | Morgan Stanley OAuth2 token endpoint URL                                                | ✅     |
+| `client-app-id`                   | The client id that will be sent to you from your Morgan Stanley contact                 | ✅     |
+| `client-app-scope`                | The scope/s that will be sent to from your Morgan Stanley contact                       | ✅     |
+| `private-key-file`                | The path to the private_key.der that has been created                                   | ✅     |
+| `public-certificate-file`         | The path to the public_key.cer that was created and sent to your Morgan Stanley contact | ✅     |
+| `ms-url-api-domain`               | Morgan Stanley API Url Domain                                                           | ✅     |
+| `proxy-host`                      | Optional proxy host                                                                     | ❌     |
+| `proxy-port`                      | Optional proxy port                                                                     | ❌     |
 
 ## Retrofit
 This template uses plain Java, with no larger frameworks such as Spring Boot. It uses the retrofit library, which configures API calls as an interface. Please see the [HelloWorldRestService interface](./src/main/java/com/ms/infra/example/application/servies/HelloWorldRestService.java) for an example. You can find the Retrofit docs [here](https://square.github.io/retrofit/).
@@ -78,11 +72,12 @@ Below are the example services we have configured (using the hello world endpoin
 The `ExampleApplication.java` file shows how to use the MsRetrofitWrapper and makes a GET request to the `services` endpoint.
 
 ## Running the Java Client application
-This template is designed and tested on the following Java LTS versions:
-- 11
+This template works with the following Java LTS versions:
 - 17
 - 21
+- 25
 
+You can also use Java 11, however you will need to use the older [build.gradle.kts](./java11-build.gradle.kts) and [gradle wrapper](./gradle/java11-wrapper/). If you are not using Java 11, then you can remove these files.
 
 It is important to ensure that the Java SDK is installed and the `JAVA_HOME` environment variable has been set.
 This can be checked by performing the following:
