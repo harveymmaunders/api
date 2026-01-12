@@ -1,3 +1,5 @@
+![Lifecycle Active](https://img.shields.io/badge/Lifecycle-Active-brightgreen)
+
 # Morgan Stanley API Samples
 
 This repository contains sample projects for use when connecting to Morgan Stanley APIs.
